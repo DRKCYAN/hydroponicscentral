@@ -11,6 +11,8 @@
     "verify:calc": "tsx scripts/verify-calc.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.110.0",
     "geist": "^1.7.2",
     "next": "15.5.20",
     "react": "19.0.0",

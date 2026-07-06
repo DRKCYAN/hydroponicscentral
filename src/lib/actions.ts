@@ -1,5 +1,5 @@
-/** Derive the single "next action" a system needs — the Dashboard's job. */
-import { SYSTEMS, ecStatus, phStatus, type SystemContext, type Status } from "@/lib/data/mock";
+import { ecStatus, phStatus } from "@/lib/data/mock";
+import type { DbSystem, Status } from "@/lib/supabase/types";
 
 export interface NextAction {
   status: Status;
@@ -7,31 +7,39 @@ export interface NextAction {
   detail: string;
 }
 
-export function nextAction(s: SystemContext): NextAction {
-  const ecS = ecStatus(s.last.ec, s.ecTarget);
-  const phS = phStatus(s.last.ph, s.phTarget);
+export function nextAction(s: DbSystem): NextAction {
+  const ec = s.last_ec;
+  const ph = s.last_ph;
+  const reservoirPct = s.last_reservoir_pct;
 
-  if (s.last.reservoirPct <= 30) {
+  if (ec === null || ph === null) {
+    return { status: "caution", label: "Log first reading", detail: "No readings recorded yet for this system." };
+  }
+
+  const ecS = ecStatus(ec, s.ec_target);
+  const phS = phStatus(ph, [s.ph_target_low, s.ph_target_high]);
+
+  if (reservoirPct !== null && reservoirPct <= 30) {
     return {
       status: "danger",
       label: "Top off / refill reservoir",
-      detail: `Reservoir at ${s.last.reservoirPct}% — below the 30% pump-safety floor.`,
+      detail: `Reservoir at ${reservoirPct}% — below the 30% pump-safety floor.`,
     };
   }
   if (ecS === "danger") {
-    const high = s.last.ec > s.ecTarget;
+    const high = ec > s.ec_target;
     return {
       status: "danger",
       label: high ? "Partial refresh — EC high" : "Dose nutrients — EC low",
-      detail: `EC ${s.last.ec} vs target ${s.ecTarget} mS/cm.`,
+      detail: `EC ${ec} vs target ${s.ec_target} mS/cm.`,
     };
   }
   if (phS === "danger") {
-    const high = s.last.ph > s.phTarget[1];
+    const high = ph > s.ph_target_high;
     return {
       status: "danger",
       label: high ? "Dose pH-down (acid)" : "Dose pH-up (base)",
-      detail: `pH ${s.last.ph} outside ${s.phTarget[0]}–${s.phTarget[1]}.`,
+      detail: `pH ${ph} outside ${s.ph_target_low}–${s.ph_target_high}.`,
     };
   }
   if (ecS === "caution" || phS === "caution") {
@@ -40,22 +48,16 @@ export function nextAction(s: SystemContext): NextAction {
       label: "Watch drift — small correction soon",
       detail:
         ecS === "caution"
-          ? `EC drifting: ${s.last.ec} vs ${s.ecTarget}.`
-          : `pH near the edge: ${s.last.ph}.`,
+          ? `EC drifting: ${ec} vs ${s.ec_target}.`
+          : `pH near the edge: ${ph}.`,
     };
   }
-  if (s.last.reservoirPct <= 50) {
+  if (reservoirPct !== null && reservoirPct <= 50) {
     return {
       status: "caution",
       label: "Plan a top-off",
-      detail: `Reservoir at ${s.last.reservoirPct}%.`,
+      detail: `Reservoir at ${reservoirPct}%.`,
     };
   }
   return { status: "ok", label: "Holding — no action", detail: "All readings in range." };
-}
-
-export function allSystemsSummary() {
-  const actions = SYSTEMS.map((s) => ({ system: s, action: nextAction(s) }));
-  const needAttention = actions.filter((a) => a.action.status !== "ok").length;
-  return { actions, needAttention, total: SYSTEMS.length };
 }

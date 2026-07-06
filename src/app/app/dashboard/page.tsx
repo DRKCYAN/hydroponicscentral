@@ -1,50 +1,88 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, StatusPill, UnitValue, Stat } from "@/components/ui/primitives";
 import { ProvenanceTrace } from "@/components/ui/feature";
-import { SYSTEMS, ecStatus, phStatus, waterById, type SystemContext } from "@/lib/data/mock";
-import { allSystemsSummary, nextAction } from "@/lib/actions";
+import { createClient } from "@/lib/supabase/server";
+import { ecStatus, phStatus } from "@/lib/data/mock";
+import { nextAction } from "@/lib/actions";
 import { vpd } from "@/lib/calc/psychro";
 import { costPerKg, profitPerArea } from "@/lib/calc/economics";
 import { fmt, fmtMoney } from "@/lib/format";
+import type { DbSystem } from "@/lib/supabase/types";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
-export default function DashboardPage() {
-  const { needAttention, total } = allSystemsSummary();
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
 
-  // Illustrative running economics (Dashboard = cost/profit tracking, [V-3.1/5.4]).
-  const cpk = costPerKg(842, 52.8); // total period cost / yield kg
-  const ppa = profitPerArea(268, 121); // revenue/m²/yr − cost/m²/yr
+  const { data: systems } = await supabase
+    .from("systems")
+    .select("*, water_sources(*)")
+    .order("created_at");
+
+  const rows = (systems ?? []) as DbSystem[];
+  const needAttention = rows.filter((s) => nextAction(s).status !== "ok").length;
+  const total = rows.length;
+
+  const cpk = costPerKg(842, 52.8);
+  const ppa = profitPerArea(268, 121);
 
   return (
     <Workspace>
       <PageHeader
         verb="Monitor"
         title="Dashboard"
-        description="The returning-user home. One card per system — am I okay, in about three seconds?"
+        description="One card per system — am I okay, in about three seconds?"
         actions={
-          <StatusPill status={needAttention === 0 ? "ok" : needAttention > 1 ? "danger" : "caution"}>
-            {needAttention === 0 ? "All systems holding" : `${needAttention} of ${total} need attention`}
-          </StatusPill>
+          total > 0 ? (
+            <StatusPill
+              status={needAttention === 0 ? "ok" : needAttention > 1 ? "danger" : "caution"}
+            >
+              {needAttention === 0
+                ? "All systems holding"
+                : `${needAttention} of ${total} need attention`}
+            </StatusPill>
+          ) : null
         }
       />
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        {SYSTEMS.map((s) => (
-          <SystemCard key={s.id} system={s} />
-        ))}
-      </div>
+      {rows.length === 0 ? (
+        <Card className="p-10 text-center">
+          <p className="text-sm font-medium text-neutral-700">No systems yet</p>
+          <p className="mt-1 text-sm text-neutral-500">
+            Add your first hydroponic setup to start tracking.
+          </p>
+          <Link
+            href="/app/systems"
+            className="mt-4 inline-block rounded-md bg-accent-600 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-700"
+          >
+            + Add system
+          </Link>
+        </Card>
+      ) : (
+        <div className="grid gap-4 lg:grid-cols-2">
+          {rows.map((s) => (
+            <SystemCard key={s.id} system={s} />
+          ))}
+        </div>
+      )}
 
-      {/* Running cost / profit (tracking lives on the Dashboard; strategy on Planning) */}
       <div className="mt-6">
         <Card>
           <CardHeader
             title="Running cost & profit — this cycle"
             subtitle="Tracking only. Investment analysis lives in Decide › Planning & Economics."
             right={
-              <Link href="/app/planning" className="text-xs font-medium text-accent-700 hover:underline">
+              <Link
+                href="/app/planning"
+                className="text-xs font-medium text-accent-700 hover:underline"
+              >
                 Open Planning →
               </Link>
             }
@@ -61,12 +99,17 @@ export default function DashboardPage() {
   );
 }
 
-function SystemCard({ system: s }: { system: SystemContext }) {
-  const ecS = ecStatus(s.last.ec, s.ecTarget);
-  const phS = phStatus(s.last.ph, s.phTarget);
+function SystemCard({ system: s }: { system: DbSystem }) {
   const action = nextAction(s);
-  const water = waterById(s.waterSourceId);
-  const airVpd = vpd(s.last.tempC, 60); // nominal 60% RH for the environmental read
+  const ec = s.last_ec;
+  const ph = s.last_ph;
+  const ecS = ec != null ? ecStatus(ec, s.ec_target) : null;
+  const phS = ph != null ? phStatus(ph, [s.ph_target_low, s.ph_target_high]) : null;
+  const airVpd = s.last_temp_c != null ? vpd(s.last_temp_c, 60) : null;
+  const daysSince =
+    s.last_at != null
+      ? Math.floor((Date.now() - new Date(s.last_at).getTime()) / 86_400_000)
+      : null;
 
   return (
     <Card>
@@ -76,40 +119,65 @@ function SystemCard({ system: s }: { system: SystemContext }) {
             {s.name}
           </Link>
         }
-        subtitle={`${s.type} · ${s.crop} · ${s.stage} · ${s.reservoirL} L`}
-        right={<StatusPill status={action.status}>{action.status === "ok" ? "OK" : action.status === "caution" ? "Watch" : "Act"}</StatusPill>}
+        subtitle={`${s.type} · ${s.crop} · ${s.stage} · ${s.reservoir_l} L`}
+        right={
+          <StatusPill status={action.status}>
+            {action.status === "ok" ? "OK" : action.status === "caution" ? "Watch" : "Act"}
+          </StatusPill>
+        }
       />
       <div className="grid grid-cols-2 gap-4 p-5 sm:grid-cols-4">
         <div>
           <div className="text-xs font-medium text-neutral-500">EC</div>
-          <UnitValue value={fmt(s.last.ec, 2)} unit="mS/cm" size="lg" tone={ecS} />
-          <div className="mt-0.5 text-xs text-neutral-400">target {fmt(s.ecTarget, 1)}</div>
+          <UnitValue
+            value={ec != null ? fmt(ec, 2) : "—"}
+            unit="mS/cm"
+            size="lg"
+            tone={ecS ?? "default"}
+          />
+          <div className="mt-0.5 text-xs text-neutral-400">target {fmt(s.ec_target, 1)}</div>
         </div>
         <div>
           <div className="text-xs font-medium text-neutral-500">pH</div>
-          <UnitValue value={fmt(s.last.ph, 1)} unit="" size="lg" tone={phS} />
+          <UnitValue value={ph != null ? fmt(ph, 1) : "—"} unit="" size="lg" tone={phS ?? "default"} />
           <div className="mt-0.5 text-xs text-neutral-400">
-            band {s.phTarget[0]}–{s.phTarget[1]}
+            band {s.ph_target_low}–{s.ph_target_high}
           </div>
         </div>
         <div>
           <div className="text-xs font-medium text-neutral-500">Reservoir</div>
           <UnitValue
-            value={s.last.reservoirPct}
+            value={s.last_reservoir_pct != null ? s.last_reservoir_pct : "—"}
             unit="%"
             size="lg"
-            tone={s.last.reservoirPct <= 30 ? "danger" : s.last.reservoirPct <= 50 ? "caution" : "default"}
+            tone={
+              s.last_reservoir_pct == null
+                ? "default"
+                : s.last_reservoir_pct <= 30
+                  ? "danger"
+                  : s.last_reservoir_pct <= 50
+                    ? "caution"
+                    : "default"
+            }
           />
-          <div className="mt-0.5 text-xs text-neutral-400">{s.last.daysSinceTopOff} d since top-off</div>
+          <div className="mt-0.5 text-xs text-neutral-400">
+            {daysSince != null ? `${daysSince} d since top-off` : "no readings yet"}
+          </div>
         </div>
         <div>
           <div className="text-xs font-medium text-neutral-500">DO · VPD</div>
-          <UnitValue value={fmt(s.last.doMgL, 1)} unit="mg/L" size="lg" tone={s.last.doMgL < 6 ? "caution" : "default"} />
-          <div className="mt-0.5 text-xs text-neutral-400">VPD {fmt(airVpd, 2)} kPa</div>
+          <UnitValue
+            value={s.last_do_mg_l != null ? fmt(s.last_do_mg_l, 1) : "—"}
+            unit="mg/L"
+            size="lg"
+            tone={s.last_do_mg_l != null && s.last_do_mg_l < 6 ? "caution" : "default"}
+          />
+          <div className="mt-0.5 text-xs text-neutral-400">
+            VPD {airVpd != null ? `${fmt(airVpd, 2)} kPa` : "—"}
+          </div>
         </div>
       </div>
 
-      {/* Next action — the single most important line on the card */}
       <div
         className={`flex items-start gap-3 border-t px-5 py-3 ${
           action.status === "ok"
@@ -119,7 +187,9 @@ function SystemCard({ system: s }: { system: SystemContext }) {
               : "border-danger-200 bg-danger-50"
         }`}
       >
-        <span className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-neutral-500">Next</span>
+        <span className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+          Next
+        </span>
         <div className="min-w-0">
           <div
             className={`text-sm font-medium ${
@@ -138,11 +208,13 @@ function SystemCard({ system: s }: { system: SystemContext }) {
 
       <div className="px-5 pb-4 pt-3">
         <ProvenanceTrace
-          summary={`vs active recipe · water ${water?.name ?? "—"}`}
+          summary={`vs active recipe · water ${s.water_sources?.name ?? "—"}`}
           steps={[
-            `last log ${new Date(s.last.at).toLocaleString()}`,
-            `active recipe: ${s.activeRecipeId ?? "none set"}`,
-            `water source: ${water?.name ?? "—"} (EC ${water?.ec ?? "—"})`,
+            s.last_at
+              ? `last log ${new Date(s.last_at).toLocaleString()}`
+              : "no readings yet",
+            `active recipe: ${s.active_recipe_id ?? "none set"}`,
+            `water source: ${s.water_sources?.name ?? "—"} (EC ${s.water_sources?.ec ?? "—"})`,
             `EC/pH compared against this system's target`,
           ]}
         />

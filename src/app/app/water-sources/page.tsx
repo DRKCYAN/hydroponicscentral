@@ -1,13 +1,28 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, Button, UnitValue, CaveatNote } from "@/components/ui/primitives";
-import { WATER_PROFILES } from "@/lib/data/mock";
+import { createClient } from "@/lib/supabase/server";
 import { waterHardness, alkalinityToMeqL } from "@/lib/calc/water";
 import { fmt } from "@/lib/format";
+import type { DbWaterSource } from "@/lib/supabase/types";
 
 export const metadata: Metadata = { title: "Water Source Profiles" };
 
-export default function WaterSourcesPage() {
+export default async function WaterSourcesPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: sources } = await supabase
+    .from("water_sources")
+    .select("*")
+    .order("created_at");
+
+  const rows = (sources ?? []) as DbWaterSource[];
+
   return (
     <Workspace>
       <PageHeader
@@ -17,50 +32,72 @@ export default function WaterSourcesPage() {
         actions={<Button>+ Add profile</Button>}
       />
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        {WATER_PROFILES.map((w) => {
-          const hardness = waterHardness(w.Ca, w.Mg);
-          const alkMeq = alkalinityToMeqL(w.alkalinity);
-          const hard = hardness > 150;
-          return (
-            <Card key={w.id}>
-              <CardHeader
-                title={w.name}
-                subtitle={`EC ${w.ec} mS/cm · pH ${w.ph}`}
-              />
-              <div className="grid grid-cols-2 gap-3 p-5 text-sm">
-                {(["Ca", "Mg", "Na", "Cl", "S", "K", "N"] as const).map((k) => (
-                  <div key={k} className="flex items-center justify-between rounded bg-neutral-50 px-2.5 py-1.5">
-                    <span className="text-xs text-neutral-500">{k}</span>
-                    <UnitValue value={fmt(w[k], 0)} unit="ppm" size="sm" />
-                  </div>
-                ))}
-              </div>
-              <div className="border-t border-neutral-200 p-5">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-xs text-neutral-500">Total hardness</div>
-                    <UnitValue value={fmt(hardness, 0)} unit="mg/L CaCO₃" tone={hard ? "caution" : "default"} />
-                  </div>
-                  <div>
-                    <div className="text-xs text-neutral-500">Alkalinity</div>
-                    <UnitValue value={fmt(alkMeq, 2)} unit="meq/L" />
-                    <div className="text-xs text-neutral-400">{w.alkalinity} mg/L CaCO₃</div>
-                  </div>
+      {rows.length === 0 ? (
+        <Card className="p-10 text-center">
+          <p className="text-sm text-neutral-500">
+            No water profiles yet. Add your source water to enable solver corrections.
+          </p>
+        </Card>
+      ) : (
+        <div className="grid gap-4 lg:grid-cols-3">
+          {rows.map((w) => {
+            const hardness = waterHardness(w.ca_ppm, w.mg_ppm);
+            const alkMeq = alkalinityToMeqL(w.alkalinity);
+            const hard = hardness > 150;
+            return (
+              <Card key={w.id}>
+                <CardHeader title={w.name} subtitle={`EC ${w.ec} mS/cm · pH ${w.ph}`} />
+                <div className="grid grid-cols-2 gap-3 p-5 text-sm">
+                  {(
+                    [
+                      ["Ca", w.ca_ppm],
+                      ["Mg", w.mg_ppm],
+                      ["Na", w.na_ppm],
+                      ["Cl", w.cl_ppm],
+                      ["S", w.s_ppm],
+                      ["K", w.k_ppm],
+                      ["N", w.n_ppm],
+                    ] as const
+                  ).map(([label, val]) => (
+                    <div
+                      key={label}
+                      className="flex items-center justify-between rounded bg-neutral-50 px-2.5 py-1.5"
+                    >
+                      <span className="text-xs text-neutral-500">{label}</span>
+                      <UnitValue value={fmt(val, 0)} unit="ppm" size="sm" />
+                    </div>
+                  ))}
                 </div>
-                {hard && (
-                  <div className="mt-3">
-                    <CaveatNote>
-                      Hard water: several ions (Ca, Mg, S, Na) may already exceed target. You
-                      can&apos;t remove them by adding fertilizer — blend with RO water instead.
-                    </CaveatNote>
+                <div className="border-t border-neutral-200 p-5">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <div className="text-xs text-neutral-500">Total hardness</div>
+                      <UnitValue
+                        value={fmt(hardness, 0)}
+                        unit="mg/L CaCO₃"
+                        tone={hard ? "caution" : "default"}
+                      />
+                    </div>
+                    <div>
+                      <div className="text-xs text-neutral-500">Alkalinity</div>
+                      <UnitValue value={fmt(alkMeq, 2)} unit="meq/L" />
+                      <div className="text-xs text-neutral-400">{w.alkalinity} mg/L CaCO₃</div>
+                    </div>
                   </div>
-                )}
-              </div>
-            </Card>
-          );
-        })}
-      </div>
+                  {hard && (
+                    <div className="mt-3">
+                      <CaveatNote>
+                        Hard water: several ions (Ca, Mg, S, Na) may already exceed target. Blend
+                        with RO water instead of adding fertilizer.
+                      </CaveatNote>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      )}
     </Workspace>
   );
 }

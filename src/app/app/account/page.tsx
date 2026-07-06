@@ -1,27 +1,56 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, Button, StatusPill } from "@/components/ui/primitives";
 import { TIERS } from "@/lib/pricing";
+import { createClient } from "@/lib/supabase/server";
+import { signOut } from "./actions";
 
 export const metadata: Metadata = { title: "Account" };
 
-export default function AccountPage() {
+export default async function AccountPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("display_name, subscription_tier")
+    .eq("id", user.id)
+    .single();
+
+  const { count: systemCount } = await supabase
+    .from("systems")
+    .select("*", { count: "exact", head: true });
+
+  const tier = profile?.subscription_tier ?? "free";
+  const tierLabel = tier === "pro_reservoir" ? "Pro + Reservoir" : tier === "pro" ? "Pro" : "Free";
+
   return (
     <Workspace>
       <PageHeader
         verb="Configure"
         title="Account"
-        description="Authentication, subscription, and billing. Feature-gating lives here; the paywalled computation itself is the Recipe Solver."
+        description="Authentication, subscription, and billing."
       />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader title="Profile" />
           <div className="space-y-3 p-5 text-sm">
-            <Row label="Name" value="Side-hustle Grower" />
-            <Row label="Email" value="cyaneboiplayz@gmail.com" />
-            <Row label="Systems" value="3 configured" />
+            <Row label="Name" value={profile?.display_name ?? user.email?.split("@")[0] ?? "—"} />
+            <Row label="Email" value={user.email ?? "—"} />
+            <Row label="Systems" value={`${systemCount ?? 0} configured`} />
+          </div>
+          <div className="border-t border-neutral-100 px-5 pb-5 pt-4">
+            <form action={signOut}>
+              <Button variant="secondary" type="submit">
+                Sign out
+              </Button>
+            </form>
           </div>
         </Card>
 
@@ -29,18 +58,21 @@ export default function AccountPage() {
           <CardHeader
             title="Subscription"
             subtitle="Current plan"
-            right={<StatusPill status="ok">Pro</StatusPill>}
+            right={<StatusPill status={tier === "free" ? "caution" : "ok"}>{tierLabel}</StatusPill>}
           />
           <div className="p-5">
             <p className="text-sm text-neutral-600">
-              You&apos;re on <strong>Pro</strong> — the full multi-salt solver bundle with
-              persistence. The reservoir add-on is available for recirculating setups.
+              {tier === "free"
+                ? "You're on the Free plan. Upgrade to Pro to unlock the multi-salt recipe solver and persistence."
+                : tier === "pro"
+                  ? "You're on Pro — the full multi-salt solver bundle with persistence."
+                  : "You're on Pro + Reservoir — the full solver bundle plus reservoir management."}
             </p>
             <div className="mt-4 flex gap-2">
               <Link href="/pricing">
                 <Button variant="secondary">Compare plans</Button>
               </Link>
-              <Button variant="secondary">Manage billing</Button>
+              {tier === "free" && <Button>Upgrade to Pro</Button>}
             </div>
           </div>
         </Card>
