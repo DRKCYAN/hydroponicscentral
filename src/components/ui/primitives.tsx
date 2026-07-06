@@ -4,6 +4,7 @@
  * reserved, monospaced numerals, and units rendered adjacent to every number.
  */
 import type { ReactNode } from "react";
+import { WarningIcon, InfoIcon, Spinner } from "./icons";
 
 type Status = "ok" | "caution" | "danger" | "info";
 
@@ -19,7 +20,7 @@ export function Card({
 }) {
   return (
     <Tag
-      className={`rounded-[var(--radius-card)] border border-neutral-200 bg-neutral-0 ${className}`}
+      className={`rounded-xl border border-neutral-200 bg-neutral-0 shadow-xs ${className}`}
     >
       {children}
     </Tag>
@@ -129,14 +130,13 @@ export function CaveatNote({
     danger: "border-danger-200 bg-danger-50 text-danger-700",
     info: "border-info-200 bg-info-50 text-info-700",
   }[tone];
+  const Icon = tone === "info" ? InfoIcon : WarningIcon;
   return (
     <p
-      className={`flex gap-2 rounded-md border px-3 py-2 text-xs leading-relaxed ${style}`}
+      className={`flex gap-2 rounded-lg border px-3 py-2.5 text-xs leading-relaxed ${style}`}
       role="note"
     >
-      <span aria-hidden className="mt-px font-semibold">
-        {tone === "info" ? "ℹ" : "⚠"}
-      </span>
+      <Icon size={15} className="mt-px shrink-0" />
       <span>{children}</span>
     </p>
   );
@@ -149,25 +149,41 @@ export function Button({
   size = "md",
   type = "button",
   className = "",
+  loading = false,
+  loadingText,
+  disabled,
   ...rest
 }: {
   children: ReactNode;
   variant?: "primary" | "secondary" | "ghost";
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   type?: "button" | "submit";
   className?: string;
+  loading?: boolean;
+  loadingText?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-[background-color,border-color,transform] duration-150 ease-[var(--ease-standard)] active:translate-y-px disabled:opacity-55 disabled:pointer-events-none";
   const variants = {
     primary: "bg-accent-600 text-neutral-0 hover:bg-accent-700",
     secondary: "border border-neutral-300 bg-neutral-0 text-neutral-700 hover:bg-neutral-100",
     ghost: "text-accent-700 hover:bg-accent-50",
   }[variant];
-  const sizes = { sm: "px-2.5 py-1.5 text-xs", md: "px-4 py-2 text-sm" }[size];
+  const sizes = {
+    sm: "px-2.5 py-1.5 text-xs",
+    md: "px-4 py-2 text-sm",
+    lg: "px-5 py-2.5 text-sm",
+  }[size];
   return (
-    <button type={type} className={`${base} ${variants} ${sizes} ${className}`} {...rest}>
-      {children}
+    <button
+      type={type}
+      className={`${base} ${variants} ${sizes} ${className}`}
+      disabled={disabled || loading}
+      aria-busy={loading || undefined}
+      {...rest}
+    >
+      {loading && <Spinner size={size === "sm" ? 13 : 15} />}
+      {loading && loadingText ? loadingText : children}
     </button>
   );
 }

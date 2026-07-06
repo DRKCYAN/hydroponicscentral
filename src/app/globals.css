@@ -1,33 +1,38 @@
 @import "tailwindcss";
 
 /*
-  Design tokens — Hydroponics Hub
-  Spec §9: neutrals are ~90% of the UI; ONE muted accent (desaturated teal) for
-  interactive/brand; green / amber / red are reserved strictly for status and are
-  never used decoratively. Numerals are monospaced; units always render adjacent.
+  Hydroponics Hub — design system
+  ---------------------------------------------------------------------------
+  Type:    Geist (display / headings) · Inter (body / UI) · Geist Mono (data)
+  Spacing: 4pt rhythm (Tailwind default scale) used everywhere.
+  Radius:  a 3-step scale — controls 8px, cards 12px, surfaces 16px.
+  Color:   neutrals ~90% · one muted teal accent · green/amber/red = status only.
+  Numbers: monospaced, tabular, with the unit always adjacent.
 */
 
 @theme {
-  /* Typography */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code",
-    Menlo, Consolas, monospace;
+  /* ---- Typography ---- */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-geist-sans), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo,
+    Consolas, monospace;
 
-  /* Neutrals — the ~90% of surfaces, text, tables, cards (cool gray) */
+  /* ---- Neutrals (cool gray) — the ~90% ---- */
   --color-neutral-0: #ffffff;
   --color-neutral-50: #f7f8f8;
   --color-neutral-100: #eef0f1;
-  --color-neutral-200: #dfe3e5;
+  --color-neutral-200: #e0e3e5;
   --color-neutral-300: #c6cccf;
-  --color-neutral-400: #9aa3a8;
-  --color-neutral-500: #6f787e;
-  --color-neutral-600: #515a60;
-  --color-neutral-700: #3c444a;
-  --color-neutral-800: #272d31;
-  --color-neutral-900: #171b1e;
+  --color-neutral-400: #99a2a8;
+  --color-neutral-500: #6d767c;
+  --color-neutral-600: #4f585e;
+  --color-neutral-700: #3a4247;
+  --color-neutral-800: #262b2f;
+  --color-neutral-900: #161a1d;
 
-  /* Accent — the single muted teal used for brand + interactive elements */
+  /* ---- Accent — the single muted teal ---- */
   --color-accent-50: #eef4f3;
   --color-accent-100: #d6e5e3;
   --color-accent-200: #aecbc7;
@@ -39,7 +44,7 @@
   --color-accent-800: #24423f;
   --color-accent-900: #1c3432;
 
-  /* Status — RESERVED. Do not use for decoration anywhere. */
+  /* ---- Status — reserved. Never decorative. ---- */
   --color-ok-50: #eef6f0;
   --color-ok-200: #b6ddc2;
   --color-ok-500: #2f855a;
@@ -60,7 +65,19 @@
   --color-info-500: #2b6cb0;
   --color-info-700: #2c5282;
 
-  --radius-card: 0.625rem;
+  /* ---- Radius scale (controls · cards · surfaces) ---- */
+  --radius-md: 0.5rem; /* 8px  — buttons, inputs, chips */
+  --radius-lg: 0.625rem; /* 10px */
+  --radius-xl: 0.75rem; /* 12px — cards, panels */
+  --radius-2xl: 1rem; /* 16px — large surfaces, modals */
+
+  /* ---- Elevation — two subtle steps, used consistently ---- */
+  --shadow-xs: 0 1px 2px 0 rgb(16 24 40 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(16 24 40 / 0.06), 0 1px 2px -1px rgb(16 24 40 / 0.05);
+  --shadow-lg: 0 16px 40px -12px rgb(16 24 40 / 0.18);
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
 }
 
 html {
@@ -71,10 +88,25 @@ body {
   background-color: var(--color-neutral-50);
   color: var(--color-neutral-800);
   font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Tabular, monospaced numerals for dosing amounts and targets (spec §9). */
+/* Headings take the display face with tightened tracking (type hierarchy). */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.018em;
+  color: var(--color-neutral-900);
+}
+
+/* Tabular, monospaced numerals for dosing amounts and targets. */
 .num {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -82,8 +114,50 @@ body {
   letter-spacing: -0.01em;
 }
 
-/* Thin custom scrollbar so the left rail + tables read as instrument-like. */
+/* Consistent, visible focus ring on every interactive element. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Thin, unobtrusive scrollbars — reads as instrument-like. */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-neutral-300) transparent;
+}
+
+/* Skeleton shimmer for loading states. */
+@keyframes hh-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-neutral-100);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.65),
+    transparent
+  );
+  animation: hh-shimmer 1.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

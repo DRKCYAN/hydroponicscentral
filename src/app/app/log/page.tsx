@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, Button, StatusPill, UnitValue, CaveatNote } from "@/components/ui/primitives";
+import { CheckIcon } from "@/components/ui/icons";
 import { Field, inputClass } from "@/components/ui/field";
 import { SYSTEMS, ecStatus, phStatus, systemById } from "@/lib/data/mock";
 import { ecTempCorrect } from "@/lib/calc/ecppm";
@@ -16,6 +17,15 @@ export default function LogEntryPage() {
   const [doVal, setDoVal] = useState("");
   const [topOff, setTopOff] = useState("");
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  function saveReading() {
+    setSaving(true);
+    window.setTimeout(() => {
+      setSaving(false);
+      setSaved(true);
+    }, 600);
+  }
 
   const system = systemById(systemId)!;
   const ecNum = parseFloat(ec);
@@ -75,8 +85,14 @@ export default function LogEntryPage() {
             </div>
 
             <div className="flex items-center gap-3 pt-2">
-              <Button onClick={() => setSaved(true)}>Save reading</Button>
-              {saved && <span className="text-sm text-ok-700">✓ Logged to {system.name}</span>}
+              <Button onClick={saveReading} loading={saving} loadingText="Saving…">
+                Save reading
+              </Button>
+              {saved && !saving && (
+                <span className="inline-flex items-center gap-1.5 text-sm text-ok-700">
+                  <CheckIcon size={15} /> Logged to {system.name}
+                </span>
+              )}
             </div>
           </div>
         </Card>

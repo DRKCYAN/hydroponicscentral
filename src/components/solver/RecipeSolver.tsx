@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/primitives";
 import { LockedPanel, ProvenanceTrace } from "@/components/ui/feature";
 import { Field, inputClass } from "@/components/ui/field";
+import { Skeleton } from "@/components/ui/skeleton";
+import { BeakerIcon, CheckIcon } from "@/components/ui/icons";
 import { fmt, fmtSigned } from "@/lib/format";
 
 type Tier = "free" | "pro";
@@ -44,6 +46,7 @@ export function RecipeSolver({ tier = "free" }: { tier?: Tier }) {
   );
   const [result, setResult] = useState<RecipeSolveResult | null>(null);
   const [committed, setCommitted] = useState(false);
+  const [solving, setSolving] = useState(false);
 
   function applyCrop(id: string) {
     setCropId(id);
@@ -65,22 +68,28 @@ export function RecipeSolver({ tier = "free" }: { tier?: Tier }) {
   );
 
   function solve() {
-    const targetsPpm = Object.fromEntries(
-      MACRO_ELEMENTS.map((e) => [e, parseFloat(targets[e]) || 0]),
-    );
-    const sourcePpm: Record<string, number> = source
-      ? { N: source.N, P: 0, K: source.K, Ca: source.Ca, Mg: source.Mg, S: source.S, Na: source.Na, Cl: source.Cl }
-      : {};
-    const res = solveRecipe({
-      elements: [...MACRO_ELEMENTS],
-      targetsPpm,
-      sourcePpm,
-      fertilizers: activeFerts,
-      weightScheme,
-      volumeL: vol,
-    });
-    setResult(res);
+    setSolving(true);
     setCommitted(false);
+    // The solve is instant; a brief, honest delay lets the loading state read
+    // and keeps the transition from popping.
+    window.setTimeout(() => {
+      const targetsPpm = Object.fromEntries(
+        MACRO_ELEMENTS.map((e) => [e, parseFloat(targets[e]) || 0]),
+      );
+      const sourcePpm: Record<string, number> = source
+        ? { N: source.N, P: 0, K: source.K, Ca: source.Ca, Mg: source.Mg, S: source.S, Na: source.Na, Cl: source.Cl }
+        : {};
+      const res = solveRecipe({
+        elements: [...MACRO_ELEMENTS],
+        targetsPpm,
+        sourcePpm,
+        fertilizers: activeFerts,
+        weightScheme,
+        volumeL: vol,
+      });
+      setResult(res);
+      setSolving(false);
+    }, 480);
   }
 
   return (
@@ -189,21 +198,25 @@ export function RecipeSolver({ tier = "free" }: { tier?: Tier }) {
           </div>
         </Card>
 
-        <Button onClick={solve} className="w-full" size="md">
+        <Button onClick={solve} className="w-full" size="lg" loading={solving} loadingText="Solving…">
           Solve recipe
         </Button>
       </div>
 
       {/* ---- OUTPUT (right) ---- */}
       <div className="space-y-6">
-        {!result ? (
+        {solving ? (
+          <SolveSkeleton />
+        ) : !result ? (
           <Card>
             <div className="flex flex-col items-center justify-center px-6 py-20 text-center">
-              <div className="text-4xl">⚗️</div>
-              <p className="mt-3 text-sm font-medium text-neutral-600">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-accent-50 text-accent-600">
+                <BeakerIcon size={22} />
+              </span>
+              <p className="mt-4 text-sm font-medium text-neutral-700">
                 Set your targets and press <span className="text-accent-700">Solve recipe</span>.
               </p>
-              <p className="mt-1 max-w-xs text-xs text-neutral-400">
+              <p className="mt-1 max-w-xs text-xs text-neutral-500">
                 The engine finds the grams of each salt that best hit every target at once — not one
                 element at a time.
               </p>
@@ -228,6 +241,29 @@ export function RecipeSolver({ tier = "free" }: { tier?: Tier }) {
 
 function toTargets(ppm: Record<string, number>): Targets {
   return Object.fromEntries(MACRO_ELEMENTS.map((e) => [e, String(ppm[e] ?? 0)])) as Targets;
+}
+
+// Loading state for the output column while the engine runs.
+function SolveSkeleton() {
+  return (
+    <Card>
+      <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-3 w-48" />
+        </div>
+        <Skeleton className="h-5 w-16 rounded-full" />
+      </div>
+      <div className="space-y-3 p-5">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <div key={i} className="flex items-center justify-between">
+            <Skeleton className="h-4 w-44" />
+            <Skeleton className="h-4 w-16" />
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
 }
 
 // ---- Source-water correction panel ----
@@ -465,7 +501,13 @@ function SolveOutput({
       {tier === "pro" ? (
         <div className="flex items-center gap-3">
           <Button variant={committed ? "secondary" : "primary"} onClick={onCommit}>
-            {committed ? "✓ Recipe activated" : "Use this recipe"}
+            {committed ? (
+              <>
+                <CheckIcon size={15} /> Recipe activated
+              </>
+            ) : (
+              "Use this recipe"
+            )}
           </Button>
           <Button variant="secondary">Export</Button>
           {committed && (

@@ -39,7 +39,7 @@ export function CalculatorHub() {
         <Link
           key={t.href}
           href={t.href}
-          className="group flex flex-col rounded-[var(--radius-card)] border border-neutral-200 bg-neutral-0 p-5 transition-colors hover:border-accent-300"
+          className="group flex flex-col rounded-xl border border-neutral-200 bg-neutral-0 p-5 transition-colors hover:border-accent-300"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-accent-600">

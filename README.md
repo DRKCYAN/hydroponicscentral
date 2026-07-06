@@ -12,7 +12,16 @@ Built from two specs: `hydroponics-ui-build-spec.md` (structure/behavior) and
 
 - **Next.js 15** (App Router) · **React 19** · **TypeScript**
 - **Tailwind CSS v4** (design tokens in `src/app/globals.css`)
+- Type system: **Geist** (headings) · **Inter** (body) · **Geist Mono** (data/numerals)
 - Pure-TypeScript calculation engine (no runtime math deps)
+
+## Design system
+
+- **Spacing** on a 4pt rhythm; **radius** on a 3-step scale (controls 8px · cards 12px · surfaces 16px); **elevation** in two subtle steps used consistently.
+- **Color:** neutrals are ~90% of the UI, one muted teal accent, and green/amber/red are reserved strictly for status.
+- **Loading states:** route-transition skeletons (`loading.tsx`), skeleton primitives for data areas, and button loading spinners on the Solve/Save actions.
+- **Responsive:** persistent left rail on desktop, slide-in drawer on mobile; the marketing header collapses to a menu.
+- **Metadata:** per-page titles + descriptions, canonical URLs on the free tools, OpenGraph/Twitter tags, an OG image (`public/og.svg`), and an SVG favicon (`src/app/icon.svg`).
 
 ## Run
 

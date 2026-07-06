@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { MobileNav } from "./MobileNav";
 
 /** Thin utility strip that replaces the marketing top bar in the product shell. */
 export function UtilityStrip() {
   return (
     <div className="flex h-14 items-center justify-between border-b border-neutral-200 bg-neutral-0 px-4">
-      <Logo href="/app/dashboard" />
+      <div className="flex items-center gap-1.5">
+        <MobileNav />
+        <Logo href="/app/dashboard" />
+      </div>
       <div className="flex items-center gap-1 text-sm">
         <Link
           href="/about"

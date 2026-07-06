@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TIERS } from "@/lib/pricing";
+import { CheckIcon } from "@/components/ui/icons";
 
 /** Real tier names + structure (free / pro / retention add-on) — not a teaser. */
 export function PricingTable() {
@@ -8,7 +9,7 @@ export function PricingTable() {
       {TIERS.map((tier) => (
         <div
           key={tier.id}
-          className={`flex flex-col rounded-[var(--radius-card)] border bg-neutral-0 p-6 ${
+          className={`flex flex-col rounded-xl border bg-neutral-0 p-6 ${
             tier.highlighted ? "border-accent-400 ring-1 ring-accent-200" : "border-neutral-200"
           }`}
         >
@@ -25,11 +26,11 @@ export function PricingTable() {
             <span className="text-sm text-neutral-500">{tier.cadence}</span>
           </div>
           <p className="mt-2 text-sm text-neutral-500">{tier.tagline}</p>
-          <ul className="mt-4 flex-1 space-y-2 text-sm text-neutral-600">
+          <ul className="mt-4 flex-1 space-y-2.5 text-sm text-neutral-600">
             {tier.features.map((f) => (
-              <li key={f} className="flex gap-2">
-                <span aria-hidden className="mt-0.5 text-accent-500">
-                  ✓
+              <li key={f} className="flex items-start gap-2.5">
+                <span className="mt-0.5 shrink-0 text-accent-500">
+                  <CheckIcon size={16} />
                 </span>
                 <span>{f}</span>
               </li>

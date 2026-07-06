@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { CalculatorHub } from "@/components/marketing/CalculatorHub";
 import { PricingTable } from "@/components/marketing/PricingTable";
-import { Kicker } from "@/components/ui/primitives";
+import { Kicker, CaveatNote } from "@/components/ui/primitives";
+import { CheckIcon } from "@/components/ui/icons";
 
 /**
  * Homepage — keyword-driven, SEO-oriented. Its job: route people into the free
@@ -98,23 +99,23 @@ export default function HomePage() {
               result traces back to its inputs, so you can verify the math before you weigh
               anything out.
             </p>
-            <ul className="mt-4 space-y-2 text-sm text-neutral-600">
-              <li className="flex gap-2">
-                <span className="text-accent-500">✓</span> Safety warnings never sit behind a
-                paywall
-              </li>
-              <li className="flex gap-2">
-                <span className="text-accent-500">✓</span> A collapsible provenance trace on every
-                result
-              </li>
-              <li className="flex gap-2">
-                <span className="text-accent-500">✓</span> Units shown next to every number — no
-                unit hidden in a tooltip
-              </li>
+            <ul className="mt-5 space-y-2.5 text-sm text-neutral-600">
+              {[
+                "Safety warnings never sit behind a paywall",
+                "A collapsible provenance trace on every result",
+                "Units shown next to every number — no unit hidden in a tooltip",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 text-accent-500">
+                    <CheckIcon size={16} />
+                  </span>
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
           {/* provenance mockup */}
-          <div className="rounded-[var(--radius-card)] border border-neutral-200 bg-neutral-0 p-5">
+          <div className="rounded-xl border border-neutral-200 bg-neutral-0 p-5">
             <div className="flex items-baseline justify-between">
               <span className="text-sm font-medium text-neutral-700">Dosing</span>
               <span className="num text-lg font-semibold text-neutral-900">
@@ -132,9 +133,11 @@ export default function HomePage() {
                 <span className="text-neutral-300">←</span> water: Well A (corrected)
               </div>
             </div>
-            <div className="mt-3 rounded-md border border-caution-200 bg-caution-50 px-3 py-2 text-xs text-caution-700">
-              ⚠ Keep calcium and sulfate in separate stock tanks — they precipitate as gypsum when
-              concentrated.
+            <div className="mt-4">
+              <CaveatNote>
+                Keep calcium and sulfate in separate stock tanks — they precipitate as gypsum when
+                concentrated.
+              </CaveatNote>
             </div>
           </div>
         </div>

@@ -21,7 +21,7 @@ export function LockedPanel({
   ctaHref?: string;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-[var(--radius-card)] border border-neutral-200">
+    <div className="relative overflow-hidden rounded-xl border border-neutral-200">
       {/* dimmed real content behind the lock */}
       <div aria-hidden className="pointer-events-none select-none opacity-40 blur-[1.5px]">
         {children}
@@ -89,7 +89,7 @@ export function ProvenanceTrace({
 /** A small "coming soon" placeholder for architecturally-inert future areas. */
 export function ComingSoon({ title, blurb }: { title: string; blurb?: string }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-[var(--radius-card)] border border-dashed border-neutral-300 bg-neutral-50 px-6 py-16 text-center">
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-neutral-300 bg-neutral-50 px-6 py-16 text-center">
       <Kicker>Coming soon</Kicker>
       <h2 className="mt-2 text-lg font-semibold text-neutral-700">{title}</h2>
       {blurb && <p className="mt-1 max-w-md text-sm text-neutral-500">{blurb}</p>}
