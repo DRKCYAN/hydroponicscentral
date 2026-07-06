@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/*
+  Design tokens — Hydroponics Hub
+  Spec §9: neutrals are ~90% of the UI; ONE muted accent (desaturated teal) for
+  interactive/brand; green / amber / red are reserved strictly for status and are
+  never used decoratively. Numerals are monospaced; units always render adjacent.
+*/
+
+@theme {
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code",
+    Menlo, Consolas, monospace;
+
+  /* Neutrals — the ~90% of surfaces, text, tables, cards (cool gray) */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f7f8f8;
+  --color-neutral-100: #eef0f1;
+  --color-neutral-200: #dfe3e5;
+  --color-neutral-300: #c6cccf;
+  --color-neutral-400: #9aa3a8;
+  --color-neutral-500: #6f787e;
+  --color-neutral-600: #515a60;
+  --color-neutral-700: #3c444a;
+  --color-neutral-800: #272d31;
+  --color-neutral-900: #171b1e;
+
+  /* Accent — the single muted teal used for brand + interactive elements */
+  --color-accent-50: #eef4f3;
+  --color-accent-100: #d6e5e3;
+  --color-accent-200: #aecbc7;
+  --color-accent-300: #7fa8a3;
+  --color-accent-400: #578682;
+  --color-accent-500: #3f7d78;
+  --color-accent-600: #356863;
+  --color-accent-700: #2c534f;
+  --color-accent-800: #24423f;
+  --color-accent-900: #1c3432;
+
+  /* Status — RESERVED. Do not use for decoration anywhere. */
+  --color-ok-50: #eef6f0;
+  --color-ok-200: #b6ddc2;
+  --color-ok-500: #2f855a;
+  --color-ok-700: #276749;
+
+  --color-caution-50: #fbf4e6;
+  --color-caution-200: #f0dca8;
+  --color-caution-500: #b7791f;
+  --color-caution-700: #975a16;
+
+  --color-danger-50: #fbecec;
+  --color-danger-200: #f0bcbc;
+  --color-danger-500: #c53030;
+  --color-danger-700: #9b2c2c;
+
+  --color-info-50: #eaf1f8;
+  --color-info-200: #bcd3ea;
+  --color-info-500: #2b6cb0;
+  --color-info-700: #2c5282;
+
+  --radius-card: 0.625rem;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--color-neutral-50);
+  color: var(--color-neutral-800);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular, monospaced numerals for dosing amounts and targets (spec §9). */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+}
+
+/* Thin custom scrollbar so the left rail + tables read as instrument-like. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-300) transparent;
+}

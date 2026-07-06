@@ -1,0 +1,171 @@
+import Link from "next/link";
+import { CalculatorHub } from "@/components/marketing/CalculatorHub";
+import { PricingTable } from "@/components/marketing/PricingTable";
+import { Kicker } from "@/components/ui/primitives";
+
+/**
+ * Homepage — keyword-driven, SEO-oriented. Its job: route people into the free
+ * calculators as fast as possible. Section stack per spec §8.
+ */
+export default function HomePage() {
+  return (
+    <>
+      {/* 1. Hero */}
+      <section className="border-b border-neutral-200 bg-gradient-to-b from-neutral-0 to-neutral-50">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+          <div className="max-w-3xl">
+            <Kicker>Hydroponics nutrient calculator</Kicker>
+            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+              A hydroponics nutrient calculator built for{" "}
+              <span className="text-accent-600">side-hustle growers</span>.
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg text-neutral-600">
+              An advanced recipe-solving engine, made simple. Solve a real multi-salt nutrient
+              recipe, correct for your source water, and check the ion balance — without a
+              chemistry degree.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                href="/calculators/recipe-solver"
+                className="rounded-md bg-accent-600 px-5 py-2.5 text-sm font-medium text-neutral-0 hover:bg-accent-700"
+              >
+                Solve a recipe free →
+              </Link>
+              <Link
+                href="#calculators"
+                className="rounded-md border border-neutral-300 bg-neutral-0 px-5 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100"
+              >
+                Browse the free tools
+              </Link>
+            </div>
+            <p className="mt-4 text-xs text-neutral-400">
+              No account needed for the free calculators. The engine keeps the full math intact —
+              the surface just hides what you don&apos;t need day to day.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Calculator hub */}
+      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <div className="mb-6">
+          <Kicker>Free tools</Kicker>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-900">
+            Start with a calculator
+          </h2>
+          <p className="mt-1 max-w-2xl text-sm text-neutral-500">
+            Each tool solves one real problem and lives at its own URL. No sign-up to try them.
+          </p>
+        </div>
+        <CalculatorHub />
+      </section>
+
+      {/* 3. Feature highlights */}
+      <section className="border-y border-neutral-200 bg-neutral-0">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <Kicker>Why it&apos;s different</Kicker>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-900">
+            Research-grade math, an operator-friendly surface
+          </h2>
+          <div className="mt-8 grid gap-8 md:grid-cols-3">
+            <Feature
+              title="Multi-salt recipe engine"
+              body="Not a stack of single-salt calculators — a constrained weighted least-squares solve across every fertilizer at once, so one salt's contribution to K doesn't wreck your Mg."
+            />
+            <Feature
+              title="Reservoir & system tracking"
+              body="Every system carries its own state: active recipe, water source, last reading. Log an EC/pH reading and it's compared against that system's target automatically."
+            />
+            <Feature
+              title="Advanced, yet simple"
+              body="The full engine — source-water correction, ion balance, EC estimate, pH dosing — stays intact underneath. The UI exposes only what a side-hustle grower uses day to day."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Trust signal */}
+      <section id="trust" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <div className="grid items-center gap-8 md:grid-cols-2">
+          <div>
+            <Kicker>Trust</Kicker>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-900">
+              The engine shows its work
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-neutral-600">
+              A missed EC or pH warning is a real dosing error, so safety warnings and
+              approximation caveats are always free and always visible — regardless of tier. Every
+              result traces back to its inputs, so you can verify the math before you weigh
+              anything out.
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-neutral-600">
+              <li className="flex gap-2">
+                <span className="text-accent-500">✓</span> Safety warnings never sit behind a
+                paywall
+              </li>
+              <li className="flex gap-2">
+                <span className="text-accent-500">✓</span> A collapsible provenance trace on every
+                result
+              </li>
+              <li className="flex gap-2">
+                <span className="text-accent-500">✓</span> Units shown next to every number — no
+                unit hidden in a tooltip
+              </li>
+            </ul>
+          </div>
+          {/* provenance mockup */}
+          <div className="rounded-[var(--radius-card)] border border-neutral-200 bg-neutral-0 p-5">
+            <div className="flex items-baseline justify-between">
+              <span className="text-sm font-medium text-neutral-700">Dosing</span>
+              <span className="num text-lg font-semibold text-neutral-900">
+                4.2 <span className="text-xs font-medium text-neutral-500">g CaNO₃</span>
+              </span>
+            </div>
+            <div className="mt-3 space-y-1.5 border-t border-neutral-200 pt-3 text-xs text-neutral-500">
+              <div className="flex gap-2">
+                <span className="text-neutral-300">←</span> recipe solved Jun 3
+              </div>
+              <div className="flex gap-2">
+                <span className="text-neutral-300">←</span> targets: N 150 ppm, Ca 180 ppm
+              </div>
+              <div className="flex gap-2">
+                <span className="text-neutral-300">←</span> water: Well A (corrected)
+              </div>
+            </div>
+            <div className="mt-3 rounded-md border border-caution-200 bg-caution-50 px-3 py-2 text-xs text-caution-700">
+              ⚠ Keep calcium and sulfate in separate stock tanks — they precipitate as gypsum when
+              concentrated.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Pricing */}
+      <section className="border-t border-neutral-200 bg-neutral-50">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <div className="mb-6 flex items-end justify-between">
+            <div>
+              <Kicker>Pricing</Kicker>
+              <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-900">
+                Gated by where you are, not how hard the math is
+              </h2>
+            </div>
+            <Link href="/pricing" className="text-sm font-medium text-accent-700 hover:underline">
+              Full pricing →
+            </Link>
+          </div>
+          <PricingTable />
+        </div>
+      </section>
+    </>
+  );
+}
+
+function Feature({ title, body }: { title: string; body: string }) {
+  return (
+    <div>
+      <h3 className="text-base font-semibold text-neutral-900">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-neutral-600">{body}</p>
+    </div>
+  );
+}
