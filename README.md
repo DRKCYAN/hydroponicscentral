@@ -1,4 +1,6 @@
-# Hydroponics Hub
+# Hydroponicity
+
+Live at [hydroponicity.com](https://hydroponicity.com).
 
 A desktop-first web app for hydroponics nutrient management, aimed at **side-hustle growers**.
 It surfaces a deep calculation engine (recipe solving, EC/pH/dosing, reservoir management,

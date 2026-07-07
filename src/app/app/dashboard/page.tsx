@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, StatusPill, UnitValue, Stat } from "@/components/ui/primitives";
 import { ProvenanceTrace } from "@/components/ui/feature";
 import { createClient } from "@/lib/supabase/server";
+import { DEMO_SYSTEMS } from "@/lib/data/demo";
 import { ecStatus, phStatus } from "@/lib/data/mock";
 import { nextAction } from "@/lib/actions";
 import { vpd } from "@/lib/calc/psychro";
@@ -19,14 +19,17 @@ export default async function DashboardPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
 
-  const { data: systems } = await supabase
-    .from("systems")
-    .select("*, water_sources(*)")
-    .order("created_at");
-
-  const rows = (systems ?? []) as DbSystem[];
+  let rows: DbSystem[];
+  if (user) {
+    const { data: systems } = await supabase
+      .from("systems")
+      .select("*, water_sources(*)")
+      .order("created_at");
+    rows = (systems ?? []) as DbSystem[];
+  } else {
+    rows = DEMO_SYSTEMS;
+  }
   const needAttention = rows.filter((s) => nextAction(s).status !== "ok").length;
   const total = rows.length;
 

@@ -30,7 +30,9 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && request.nextUrl.pathname.startsWith("/app")) {
+  // The app is explorable without an account (demo data); sign-in is only
+  // required for saving data. Only the account page itself needs a user.
+  if (!user && request.nextUrl.pathname.startsWith("/app/account")) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);

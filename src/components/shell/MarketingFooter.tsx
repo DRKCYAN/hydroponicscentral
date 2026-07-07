@@ -19,7 +19,7 @@ export function MarketingFooter() {
             href={REPO_URL}
             target="_blank"
             rel="noreferrer noopener"
-            aria-label="Hydroponics Hub on GitHub"
+            aria-label="Hydroponicity on GitHub"
             className="mt-4 inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-200 text-neutral-500 transition-colors hover:border-neutral-300 hover:text-neutral-800"
           >
             <GithubIcon size={18} />
@@ -51,7 +51,7 @@ export function MarketingFooter() {
       </div>
       <div className="border-t border-neutral-200">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-2 px-4 py-5 text-xs text-neutral-400 sm:flex-row sm:items-center sm:px-6">
-          <span>© {new Date().getFullYear()} Hydroponics Hub</span>
+          <span>© {new Date().getFullYear()} Hydroponicity</span>
           <span>Safety warnings and approximation caveats are free on every tier.</span>
         </div>
       </div>

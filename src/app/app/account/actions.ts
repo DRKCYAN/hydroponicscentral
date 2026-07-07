@@ -6,5 +6,6 @@ import { redirect } from "next/navigation";
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/login");
+  // The app stays usable signed-out (demo data), so land on the home page.
+  redirect("/");
 }

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, Stat, UnitValue, CaveatNote } from "@/components/ui/primitives";
 import { Sparkline } from "@/components/ui/Sparkline";
 import { createClient } from "@/lib/supabase/server";
+import { DEMO_SYSTEMS, DEMO_LOG_ENTRIES } from "@/lib/data/demo";
 import { rgr, doublingTime, agr, cgr, nar, lai, wue } from "@/lib/calc/biology";
 import { accumulateIon } from "@/lib/calc/ph";
 import { fmt } from "@/lib/format";
@@ -31,28 +31,34 @@ export default async function HistoryPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
 
-  const { data: systemsData } = await supabase
-    .from("systems")
-    .select("id, name")
-    .order("created_at");
-
-  const systems = (systemsData ?? []) as Pick<DbSystem, "id" | "name">[];
-
-  // Fetch log entries for each system
+  let systems: Pick<DbSystem, "id" | "name">[];
   const logsMap: Record<string, DbLogEntry[]> = {};
-  if (systems.length > 0) {
-    const { data: logsData } = await supabase
-      .from("log_entries")
-      .select("*")
-      .in(
-        "system_id",
-        systems.map((s) => s.id)
-      )
-      .order("logged_at");
-    const logs = (logsData ?? []) as DbLogEntry[];
-    for (const log of logs) {
+  if (user) {
+    const { data: systemsData } = await supabase
+      .from("systems")
+      .select("id, name")
+      .order("created_at");
+    systems = (systemsData ?? []) as Pick<DbSystem, "id" | "name">[];
+
+    // Fetch log entries for each system
+    if (systems.length > 0) {
+      const { data: logsData } = await supabase
+        .from("log_entries")
+        .select("*")
+        .in(
+          "system_id",
+          systems.map((s) => s.id)
+        )
+        .order("logged_at");
+      const logs = (logsData ?? []) as DbLogEntry[];
+      for (const log of logs) {
+        (logsMap[log.system_id] ??= []).push(log);
+      }
+    }
+  } else {
+    systems = DEMO_SYSTEMS.map((s) => ({ id: s.id, name: s.name }));
+    for (const log of DEMO_LOG_ENTRIES) {
       (logsMap[log.system_id] ??= []).push(log);
     }
   }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import {
@@ -11,6 +11,7 @@ import {
   CaveatNote,
 } from "@/components/ui/primitives";
 import { createClient } from "@/lib/supabase/server";
+import { demoSystemById, demoLogsForSystem } from "@/lib/data/demo";
 import { ecStatus, phStatus } from "@/lib/data/mock";
 import { nextAction } from "@/lib/actions";
 import { turnoverEstimate } from "@/lib/systems-calc";
@@ -24,6 +25,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { title: demoSystemById(id)?.name ?? "System" };
   const { data } = await supabase.from("systems").select("name").eq("id", id).single();
   return { title: data?.name ?? "System" };
 }
@@ -38,26 +43,32 @@ export default async function SystemDetail({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
 
-  const { data: systemData } = await supabase
-    .from("systems")
-    .select("*, water_sources(*)")
-    .eq("id", id)
-    .single();
+  let s: DbSystem;
+  let logs: DbLogEntry[];
+  if (user) {
+    const { data: systemData } = await supabase
+      .from("systems")
+      .select("*, water_sources(*)")
+      .eq("id", id)
+      .single();
 
-  if (!systemData) notFound();
+    if (!systemData) notFound();
+    s = systemData as DbSystem;
 
-  const s = systemData as DbSystem;
-
-  const { data: logData } = await supabase
-    .from("log_entries")
-    .select("*")
-    .eq("system_id", id)
-    .order("logged_at", { ascending: false })
-    .limit(50);
-
-  const logs = (logData ?? []) as DbLogEntry[];
+    const { data: logData } = await supabase
+      .from("log_entries")
+      .select("*")
+      .eq("system_id", id)
+      .order("logged_at", { ascending: false })
+      .limit(50);
+    logs = (logData ?? []) as DbLogEntry[];
+  } else {
+    const demo = demoSystemById(id);
+    if (!demo) notFound();
+    s = demo;
+    logs = demoLogsForSystem(id).slice().reverse();
+  }
   const action = nextAction(s);
   const turnover = turnoverEstimate(s.type, s.reservoir_l);
   const daysSince =

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useState } from "react";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, Button, StatusPill, UnitValue, CaveatNote } from "@/components/ui/primitives";
@@ -11,7 +12,13 @@ import { fmt } from "@/lib/format";
 import { saveLogEntry, type SaveLogState } from "./actions";
 import type { DbSystem } from "@/lib/supabase/types";
 
-export function LogClient({ systems }: { systems: DbSystem[] }) {
+export function LogClient({
+  systems,
+  isAuthed,
+}: {
+  systems: DbSystem[];
+  isAuthed: boolean;
+}) {
   const [systemId, setSystemId] = useState(systems[0]?.id ?? "");
   const [ec, setEc] = useState("");
   const [ph, setPh] = useState("");
@@ -144,9 +151,24 @@ export function LogClient({ systems }: { systems: DbSystem[] }) {
             )}
 
             <div className="flex items-center gap-3 pt-2">
-              <Button type="submit" loading={pending} loadingText="Saving…">
-                Save reading
-              </Button>
+              {isAuthed ? (
+                <Button type="submit" loading={pending} loadingText="Saving…">
+                  Save reading
+                </Button>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="inline-flex items-center rounded-md bg-accent-600 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-700"
+                  >
+                    Sign in to save
+                  </Link>
+                  <span className="text-xs text-neutral-500">
+                    Everything above works without an account — an account is
+                    only needed to keep your readings.
+                  </span>
+                </>
+              )}
               {state?.success && !pending && (
                 <span className="inline-flex items-center gap-1.5 text-sm text-ok-700">
                   <CheckIcon size={15} /> Logged to {state.systemName}

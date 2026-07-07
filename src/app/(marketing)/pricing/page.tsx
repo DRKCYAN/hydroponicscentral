@@ -5,7 +5,7 @@ import { Kicker, CaveatNote } from "@/components/ui/primitives";
 export const metadata: Metadata = {
   title: "Pricing — Free, Pro & Reservoir add-on",
   description:
-    "Hydroponics Hub pricing. Free commodity calculators, a Pro multi-salt recipe solver with persistence, and a reservoir-management add-on for recirculating systems.",
+    "Hydroponicity pricing. Free commodity calculators, a Pro multi-salt recipe solver with persistence, and a reservoir-management add-on for recirculating systems.",
 };
 
 export default function PricingPage() {

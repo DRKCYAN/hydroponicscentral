@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, Button, UnitValue } from "@/components/ui/primitives";
 import { createClient } from "@/lib/supabase/server";
+import { DEMO_HARVESTS } from "@/lib/data/demo";
 import { priceRealization } from "@/lib/calc/economics";
 import { fmt, fmtMoney } from "@/lib/format";
 import type { DbHarvestEntry } from "@/lib/supabase/types";
@@ -17,14 +17,17 @@ export default async function HarvestLogPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
 
-  const { data: harvests } = await supabase
-    .from("harvest_entries")
-    .select("*, systems(name)")
-    .order("harvested_at", { ascending: false });
-
-  const rows = (harvests ?? []) as DbHarvestEntry[];
+  let rows: DbHarvestEntry[];
+  if (user) {
+    const { data: harvests } = await supabase
+      .from("harvest_entries")
+      .select("*, systems(name)")
+      .order("harvested_at", { ascending: false });
+    rows = (harvests ?? []) as DbHarvestEntry[];
+  } else {
+    rows = DEMO_HARVESTS;
+  }
 
   return (
     <Workspace>

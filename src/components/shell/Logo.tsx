@@ -16,7 +16,7 @@ export function Logo({ href = "/" }: { href?: string }) {
         </svg>
       </span>
       <span className="text-sm font-semibold tracking-tight text-neutral-800">
-        Hydroponics<span className="text-accent-600">Hub</span>
+        Hydroponi<span className="text-accent-600">city</span>
       </span>
     </Link>
   );

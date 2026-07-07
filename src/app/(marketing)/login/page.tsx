@@ -8,7 +8,7 @@ import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { createClient } from "@/lib/supabase/server";
 import { signIn } from "./actions";
 
-export const metadata: Metadata = { title: "Sign in — Hydroponics Hub" };
+export const metadata: Metadata = { title: "Sign in — Hydroponicity" };
 
 export default async function LoginPage({
   searchParams,

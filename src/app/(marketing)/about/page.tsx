@@ -4,7 +4,7 @@ import { Kicker } from "@/components/ui/primitives";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Hydroponics Hub — a precision nutrient calculator for side-hustle growers.",
+  description: "About Hydroponicity — a precision nutrient calculator for side-hustle growers.",
 };
 
 export default function AboutPage() {
@@ -15,7 +15,7 @@ export default function AboutPage() {
         Built for side-hustle growers
       </h1>
       <p className="mt-3 text-neutral-600">
-        Hydroponics Hub surfaces a sophisticated calculation engine — recipe solving, EC/pH/dosing,
+        Hydroponicity surfaces a sophisticated calculation engine — recipe solving, EC/pH/dosing,
         reservoir management — through a clean, operational interface. The principle: don&apos;t
         simplify the engine, simplify the surface.
       </p>

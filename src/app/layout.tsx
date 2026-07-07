@@ -11,14 +11,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hydroponicshub.app"),
+  metadataBase: new URL("https://hydroponicity.com"),
   title: {
-    default: "Hydroponics Hub — Nutrient calculator for side-hustle growers",
-    template: "%s · Hydroponics Hub",
+    default: "Hydroponicity — Nutrient calculator for side-hustle growers",
+    template: "%s · Hydroponicity",
   },
   description:
     "An advanced recipe-solving engine, made simple. A free EC-to-ppm converter, fertilizer label decoder, and a real multi-salt nutrient recipe solver for small hydroponics operations.",
-  applicationName: "Hydroponics Hub",
+  applicationName: "Hydroponicity",
   keywords: [
     "hydroponics nutrient calculator",
     "EC to ppm converter",
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    siteName: "Hydroponics Hub",
-    title: "Hydroponics Hub — Nutrient calculator for side-hustle growers",
+    siteName: "Hydroponicity",
+    title: "Hydroponicity — Nutrient calculator for side-hustle growers",
     description:
       "A real multi-salt recipe solver, source-water correction, and ion balance — research-grade math with an operator-friendly surface.",
     url: "/",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hydroponics Hub",
+    title: "Hydroponicity",
     description:
       "An advanced recipe-solving engine, made simple. Built for side-hustle growers.",
     images: ["/og.svg"],

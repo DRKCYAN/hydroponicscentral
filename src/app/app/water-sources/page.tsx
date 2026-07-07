@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, CardHeader, Button, UnitValue, CaveatNote } from "@/components/ui/primitives";
 import { createClient } from "@/lib/supabase/server";
+import { DEMO_WATER_SOURCES } from "@/lib/data/demo";
 import { waterHardness, alkalinityToMeqL } from "@/lib/calc/water";
 import { fmt } from "@/lib/format";
 import type { DbWaterSource } from "@/lib/supabase/types";
@@ -14,14 +14,17 @@ export default async function WaterSourcesPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
 
-  const { data: sources } = await supabase
-    .from("water_sources")
-    .select("*")
-    .order("created_at");
-
-  const rows = (sources ?? []) as DbWaterSource[];
+  let rows: DbWaterSource[];
+  if (user) {
+    const { data: sources } = await supabase
+      .from("water_sources")
+      .select("*")
+      .order("created_at");
+    rows = (sources ?? []) as DbWaterSource[];
+  } else {
+    rows = DEMO_WATER_SOURCES;
+  }
 
   return (
     <Workspace>

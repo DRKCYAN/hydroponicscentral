@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { Workspace, PageHeader } from "@/components/ui/page";
 import { Card, Button, StatusPill, UnitValue } from "@/components/ui/primitives";
 import { createClient } from "@/lib/supabase/server";
+import { DEMO_SYSTEMS } from "@/lib/data/demo";
 import { nextAction } from "@/lib/actions";
 import { fmt } from "@/lib/format";
 import type { DbSystem } from "@/lib/supabase/types";
@@ -15,14 +15,17 @@ export default async function SystemsPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
 
-  const { data: systems } = await supabase
-    .from("systems")
-    .select("*, water_sources(*)")
-    .order("created_at");
-
-  const rows = (systems ?? []) as DbSystem[];
+  let rows: DbSystem[];
+  if (user) {
+    const { data: systems } = await supabase
+      .from("systems")
+      .select("*, water_sources(*)")
+      .order("created_at");
+    rows = (systems ?? []) as DbSystem[];
+  } else {
+    rows = DEMO_SYSTEMS;
+  }
 
   return (
     <Workspace>
