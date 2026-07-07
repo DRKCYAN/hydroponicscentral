@@ -58,7 +58,10 @@ export function LogClient({
         />
         <Card className="p-10 text-center">
           <p className="text-sm text-neutral-500">
-            Add a system before logging readings.
+            Add a system before logging readings.{" "}
+            <Link href="/app/systems/new" className="font-medium text-accent-700 hover:underline">
+              Create one →
+            </Link>
           </p>
         </Card>
       </Workspace>

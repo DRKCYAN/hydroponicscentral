@@ -62,7 +62,7 @@ export default async function DashboardPage() {
             Add your first hydroponic setup to start tracking.
           </p>
           <Link
-            href="/app/systems"
+            href="/app/systems/new"
             className="mt-4 inline-block rounded-md bg-accent-600 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-700"
           >
             + Add system

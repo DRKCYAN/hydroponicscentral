@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Workspace, PageHeader } from "@/components/ui/page";
-import { Card, Button, StatusPill, UnitValue } from "@/components/ui/primitives";
+import { Card, StatusPill, UnitValue } from "@/components/ui/primitives";
 import { createClient } from "@/lib/supabase/server";
 import { DEMO_SYSTEMS } from "@/lib/data/demo";
 import { nextAction } from "@/lib/actions";
@@ -33,13 +33,25 @@ export default async function SystemsPage() {
         verb="Configure"
         title="Systems"
         description="Each system is a physical setup that owns its own state — active recipe, water source, last reading."
-        actions={<Button>+ New system</Button>}
+        actions={
+          <Link
+            href="/app/systems/new"
+            className="inline-flex items-center justify-center rounded-md bg-accent-600 px-4 py-2 text-sm font-medium text-neutral-0 transition-colors hover:bg-accent-700"
+          >
+            + New system
+          </Link>
+        }
       />
 
       <Card>
         {rows.length === 0 ? (
           <div className="p-10 text-center">
-            <p className="text-sm text-neutral-500">No systems yet. Add your first setup to get started.</p>
+            <p className="text-sm text-neutral-500">
+              No systems yet.{" "}
+              <Link href="/app/systems/new" className="font-medium text-accent-700 hover:underline">
+                Add your first setup →
+              </Link>
+            </p>
           </div>
         ) : (
           <div className="overflow-x-auto">
