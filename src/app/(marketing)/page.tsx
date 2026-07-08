@@ -17,13 +17,12 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <Kicker>Hydroponics nutrient calculator</Kicker>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              A hydroponics nutrient calculator built for{" "}
-              <span className="text-accent-600">side-hustle growers</span>.
+              Hydroponics <span className="text-accent-600">pays</span>.{" "}
+              <span className="block">The chemistry is what kills it.</span>
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-neutral-600">
-              An advanced recipe-solving engine, made simple. Solve a real multi-salt nutrient
-              recipe, correct for your source water, and check the ion balance — without a
-              chemistry degree.
+              Hydroponicity is the nutrient calculator built for side-hustle growers — it solves
+              the recipe so you don&apos;t have to guess.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
@@ -61,7 +60,55 @@ export default function HomePage() {
         <CalculatorHub />
       </section>
 
-      {/* 3. Feature highlights */}
+      {/* 3. The "great side hustle, but…" pitch */}
+      <section className="border-t border-neutral-200 bg-neutral-0">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <div className="max-w-3xl">
+            <Kicker>Why it exists</Kicker>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-900">
+              A great side hustle, but&hellip;
+            </h2>
+            <div className="mt-5 space-y-4 text-base leading-relaxed text-neutral-600">
+              <p>
+                Hydroponics is one of the few side hustles where a spare tent and a couple of
+                reservoirs can out-produce a backyard plot several times over. Basil you can sell
+                to restaurants. Strawberries in a garage through winter. Lettuce turning over every
+                three weeks.
+              </p>
+              <p>
+                Then the plants yellow, curl, and stall, and the bottle label doesn&apos;t tell you
+                why.
+              </p>
+              <p>
+                Because the label assumes distilled water. Yours already has calcium and alkalinity
+                in it. It assumes you&apos;ll hit the right EC and hold pH steady while the plants
+                pull ions out of solution and drag it around all day. It never warns you that
+                pouring calcium and sulfate into the same concentrated stock turns your expensive
+                nutrients into sludge at the bottom of the jug, or that the iron in your mix
+                quietly stops working above pH 6.5.
+              </p>
+              <p className="font-medium text-neutral-900">
+                None of this is actually hard. It&apos;s just invisible, until something dies.
+              </p>
+              <p>
+                Hydroponicity does the chemistry. Tell it your water, your salts, and what
+                you&apos;re growing, and it solves the recipe: the exact grams of each fertilizer
+                to hit your targets, corrected for what&apos;s already in your tap. It flags the
+                mixes that will precipitate before you make them, and matches your chelate to your
+                pH. You get a number you can trust and the reason it&apos;s right.
+              </p>
+            </div>
+            <Link
+              href="/calculators/recipe-solver"
+              className="mt-6 inline-block text-sm font-medium text-accent-700 hover:underline"
+            >
+              Solve a recipe free →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Feature highlights */}
       <section className="border-y border-neutral-200 bg-neutral-0">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <Kicker>Why it&apos;s different</Kicker>
@@ -85,7 +132,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. Trust signal */}
+      {/* 5. Trust signal */}
       <section id="trust" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="grid items-center gap-8 md:grid-cols-2">
           <div>
@@ -143,7 +190,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Pricing */}
+      {/* 6. Pricing */}
       <section className="border-t border-neutral-200 bg-neutral-50">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <div className="mb-6 flex items-end justify-between">
