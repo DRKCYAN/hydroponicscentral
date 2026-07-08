@@ -13,14 +13,14 @@ export default function HomePage() {
     <>
       {/* 1. Hero */}
       <section className="border-b border-neutral-200 bg-gradient-to-b from-neutral-0 to-neutral-50">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
           <div className="max-w-3xl">
             <Kicker>Hydroponics nutrient calculator</Kicker>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+            <h1 className="mt-2 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
               Hydroponics <span className="text-accent-600">pays</span>.{" "}
               <span className="block">The chemistry is what kills it.</span>
             </h1>
-            <div className="mt-5 max-w-2xl space-y-4 text-base leading-relaxed text-neutral-600 sm:text-lg">
+            <div className="mt-4 max-w-2xl space-y-3 text-base leading-relaxed text-neutral-600">
               <p>
                 A spare tent and a couple of reservoirs can out-produce a backyard plot several
                 times over — basil sold to restaurants, strawberries in a garage through winter,
@@ -42,7 +42,7 @@ export default function HomePage() {
                 your pH. You get a number you can trust and the reason it&apos;s right.
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
                 href="/calculators/recipe-solver"
                 className="rounded-md bg-accent-600 px-5 py-2.5 text-sm font-medium text-neutral-0 hover:bg-accent-700"
