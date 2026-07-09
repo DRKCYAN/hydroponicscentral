@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s · Hydroponicity",
   },
   description:
-    "An advanced recipe-solving engine, made simple. A free EC-to-ppm converter, fertilizer label decoder, and a real multi-salt nutrient recipe solver for small hydroponics operations.",
+    "Free hydroponics calculators and a real multi-salt nutrient recipe solver — EC to ppm, VPD, fertilizer label decoder, and more. No signup needed.",
   applicationName: "Hydroponicity",
   keywords: [
     "hydroponics nutrient calculator",
