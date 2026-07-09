@@ -105,3 +105,17 @@ export const VPD_TARGETS = {
   vegetative: [0.8, 1.2],
   flowering: [1.2, 1.5],
 } as const;
+
+/** PPFD setpoint bands (µmol·m⁻²·s⁻¹) by stage — rules of thumb, tunable. */
+export const PPFD_TARGETS = {
+  seedling: [100, 300],
+  vegetative: [300, 600],
+  flowering: [600, 900],
+} as const;
+
+/** DLI setpoint bands (mol·m⁻²·day⁻¹) by stage — rules of thumb, tunable. */
+export const DLI_TARGETS = {
+  seedling: [4, 8],
+  vegetative: [12, 20],
+  flowering: [20, 35],
+} as const;

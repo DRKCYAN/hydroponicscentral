@@ -44,6 +44,11 @@ export function enthalpy(tC: number, rhPct: number): number {
   return 1.006 * tC + w * (2501 + 1.86 * tC);
 }
 
+/** Leaf-surface VPD (kPa): saturation at leaf temp minus air actual vapor pressure. */
+export function leafVpd(tAirC: number, tLeafC: number, rhPct: number): number {
+  return svp(tLeafC) - actualVaporPressure(tAirC, rhPct);
+}
+
 /** [IV-7.2] VPD target -> RH setpoint (%) at a given temperature. */
 export function vpdToRh(vpdTarget: number, tC: number): number {
   return (1 - vpdTarget / svp(tC)) * 100;

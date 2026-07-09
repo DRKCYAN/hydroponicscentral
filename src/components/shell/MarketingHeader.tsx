@@ -12,7 +12,7 @@ export function MarketingHeader() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Logo />
         <nav className="hidden items-center gap-1 text-sm sm:flex">
-          <NavLink href="/#calculators">Calculators</NavLink>
+          <NavLink href="/calculators">Calculators</NavLink>
           <NavLink href="/pricing">Pricing</NavLink>
           <NavLink href="/about">About</NavLink>
           <Link

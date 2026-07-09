@@ -12,3 +12,6 @@ export * from "./ph";
 export * from "./psychro";
 export * from "./biology";
 export * from "./economics";
+export * from "./hvac";
+export * from "./lighting";
+export * from "./irrigation";

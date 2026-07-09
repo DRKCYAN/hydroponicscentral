@@ -5,7 +5,7 @@ import { Kicker, CaveatNote } from "@/components/ui/primitives";
 export const metadata: Metadata = {
   title: "Hydroponic Nutrient Recipe Solver (free)",
   description:
-    "Enter target ppm for N, P, K, Ca, Mg and S and get grams of each fertilizer salt to mix — a real multi-salt weighted least-squares solve, not a stack of single-salt calculators. One free solve.",
+    "Enter target ppm for N, P, K, Ca, Mg and S and get grams of each fertilizer salt to mix — a real multi-salt solve, not single-salt math. One free solve.",
 };
 
 export default function RecipeSolverPage() {

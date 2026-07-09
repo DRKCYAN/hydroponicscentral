@@ -4,7 +4,7 @@ import { LabelDecoderClient } from "./LabelDecoderClient";
 export const metadata: Metadata = {
   title: "Fertilizer Label Decoder — oxide to elemental (free)",
   description:
-    "Convert a guaranteed-analysis N-P-K label (P₂O₅, K₂O oxides) into the elemental percentages every ppm calculation needs. Free hydroponics fertilizer calculator.",
+    "Convert a guaranteed-analysis N-P-K label (P₂O₅ and K₂O oxides) into the elemental percentages ppm math needs. Free, no signup.",
   alternates: { canonical: "/calculators/label-decoder" },
   openGraph: {
     title: "Fertilizer label decoder (oxide → elemental)",

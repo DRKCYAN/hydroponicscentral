@@ -15,9 +15,11 @@ export const lminToM3s = (lmin: number) => lmin * 1.6667e-5;
 export const lhToM3s = (lh: number) => lh * 2.7778e-7;
 export const m3hToLmin = (m3h: number) => m3h * 16.667;
 
-// ---- Length ----
+// ---- Length / area / volume ----
 export const ftToM = (ft: number) => ft * 0.3048;
 export const inToMm = (inch: number) => inch * 25.4;
+export const ft2ToM2 = (ft2: number) => ft2 * 0.092903;
+export const ft3ToM3 = (ft3: number) => ft3 * 0.0283168;
 
 // ---- Pressure / head ----
 export const psiToMHead = (psi: number) => psi * 0.7031;
@@ -28,6 +30,9 @@ export const mHeadToKpa = (m: number) => m * 9.8067;
 // ---- HVAC / air ----
 export const tonToKw = (ton: number) => ton * 3.5169;
 export const btuhToW = (btuh: number) => btuh * 0.2931;
+export const wToBtuh = (w: number) => w / 0.2931;
+export const btuhToTon = (btuh: number) => btuh / 12_000;
+export const tonToBtuh = (ton: number) => ton * 12_000;
 export const cfmToM3h = (cfm: number) => cfm * 1.699;
 export const cfmToLs = (cfm: number) => cfm * 0.4719;
 export const pintDayToLDay = (pint: number) => pint * 0.4732;

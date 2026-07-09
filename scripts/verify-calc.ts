@@ -6,7 +6,20 @@ import { ionBalance, ppmMapFromElements, ecFromCations } from "../src/lib/calc/v
 import { ecToPpm, ecTempCorrect } from "../src/lib/calc/ecppm";
 import { p2o5ToP, k2oToK, elementContributionPpm } from "../src/lib/calc/fertilizer";
 import { npv, irr } from "../src/lib/calc/economics";
-import { vpd, vpdToRh } from "../src/lib/calc/psychro";
+import { vpd, vpdToRh, leafVpd } from "../src/lib/calc/psychro";
+import { wToBtuh } from "../src/lib/calc/units";
+import {
+  dehumGrowRoomLDay,
+  dryingWaterLossL,
+  dehumidifierSize,
+  humidifierLoadLDay,
+  acSizing,
+  ventilationBaseCfm,
+  ventilationRequiredCfm,
+} from "../src/lib/calc/hvac";
+import { ppfFromWattage, averagePpfd, wattageForPpfd } from "../src/lib/calc/lighting";
+import { dli } from "../src/lib/calc/psychro";
+import { pumpGphForTurnover, requiredPumpGph } from "../src/lib/calc/irrigation";
 import { FERTILIZERS, MACRO_ELEMENTS } from "../src/lib/data/fertilizers";
 
 let pass = 0;
@@ -88,6 +101,36 @@ const r = irr(1000, [400, 400, 400, 400]);
 check("IRR ~21.9%", r != null && Math.abs(r - 0.2186) < 0.01, `irr=${r}`);
 check("VPD(24°C, 60%) ~1.19 kPa", near(vpd(24, 60), 1.1897, 1e-2));
 check("vpdToRh round-trips VPD", near(vpd(24, vpdToRh(1.19, 24)), 1.19, 1e-2));
+
+console.log("\nHVAC sizing (hvac.ts)");
+check("W->BTU/hr 1000 W ~3412", near(wToBtuh(1000), 3412, 1), `got=${wToBtuh(1000)}`);
+const ac = acSizing(1000, 1);
+check("AC 1000 W -> ~3412 BTU/hr, ~0.284 ton", near(ac.btuh, 3412, 1) && near(ac.tons, 0.2843, 1e-3));
+check("dehum grow 10 L/day in @0.9 = 9", dehumGrowRoomLDay(10, 0.9) === 9);
+check(
+  "drying 10 kg wet 80%->10% sheds ~7.78 L",
+  near(dryingWaterLossL(10, 0.8, 0.1), 7.7778, 1e-3),
+  `got=${dryingWaterLossL(10, 0.8, 0.1)}`,
+);
+check("dehum size 9 L/day @SF1 ~19.02 pints", near(dehumidifierSize(9, 1).pintsDay, 19.02, 0.01));
+check("humidifier load 40->65% RH is positive", humidifierLoadLDay(30, 1, 25, 40, 65) > 0);
+check("humidifier load target below current = 0", humidifierLoadLDay(30, 1, 25, 65, 40) === 0);
+check("ventilation base 240 ft³ / 3 min = 80 CFM", ventilationBaseCfm(240, 3) === 80);
+check("ventilation +25% filter = 100 CFM", ventilationRequiredCfm(80, { filter: 1.25 }) === 100);
+
+console.log("\nLighting (lighting.ts) + DLI [I-2.1]");
+check("PPF 600 W x 2.7 µmol/J = 1620", ppfFromWattage(600, 2.7) === 1620);
+check("avg PPFD 1620 over 1.2 m² @0.9 = 1215", near(averagePpfd(1620, 1.2, 0.9), 1215, 1e-9));
+check(
+  "wattageForPpfd round-trips averagePpfd",
+  near(averagePpfd(ppfFromWattage(wattageForPpfd(800, 1.2, 2.7), 2.7), 1.2), 800, 1e-9),
+);
+check("DLI 600 PPFD x 18 h ~38.88", near(dli(600, 18), 38.88, 1e-9));
+
+console.log("\nIrrigation (irrigation.ts) + leaf VPD");
+check("turnover 50 gal x 1/h = 50 GPH", pumpGphForTurnover(50, 1) === 50);
+check("required pump max(50,30) x1.2 = 60", requiredPumpGph(50, 30, 1.2) === 60);
+check("leaf VPD (cooler leaf) < air VPD", leafVpd(25, 23, 60) < vpd(25, 60));
 
 console.log(`\n${pass} passed, ${fail} failed\n`);
 process.exit(fail === 0 ? 0 : 1);

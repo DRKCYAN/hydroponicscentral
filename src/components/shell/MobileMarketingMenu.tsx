@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { MenuIcon, CloseIcon } from "@/components/ui/icons";
 
 const LINKS: [string, string][] = [
-  ["Calculators", "/#calculators"],
+  ["Calculators", "/calculators"],
   ["Pricing", "/pricing"],
   ["About", "/about"],
 ];

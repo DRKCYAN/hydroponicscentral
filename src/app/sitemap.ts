@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { CALCULATORS, calcHref } from "@/lib/calculators";
 
 const BASE = "https://hydroponicity.com";
 
@@ -10,9 +11,12 @@ const BASE = "https://hydroponicity.com";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${BASE}/`, changeFrequency: "weekly", priority: 1 },
-    { url: `${BASE}/calculators/ec-ppm`, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE}/calculators/label-decoder`, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE}/calculators/recipe-solver`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE}/calculators`, changeFrequency: "weekly", priority: 0.9 },
+    ...CALCULATORS.map((t) => ({
+      url: `${BASE}${calcHref(t.slug)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    })),
     { url: `${BASE}/pricing`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/about`, changeFrequency: "monthly", priority: 0.5 },
   ];

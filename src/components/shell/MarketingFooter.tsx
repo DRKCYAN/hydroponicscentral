@@ -29,8 +29,11 @@ export function MarketingFooter() {
           title="Free calculators"
           links={[
             ["EC ↔ ppm converter", "/calculators/ec-ppm"],
-            ["Fertilizer label decoder", "/calculators/label-decoder"],
             ["Recipe solver", "/calculators/recipe-solver"],
+            ["VPD calculator", "/calculators/vpd"],
+            ["PPFD & DLI calculator", "/calculators/ppfd"],
+            ["Electricity cost", "/calculators/electricity"],
+            ["All calculators →", "/calculators"],
           ]}
         />
         <FooterCol
