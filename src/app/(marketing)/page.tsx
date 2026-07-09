@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CalculatorHub } from "@/components/marketing/CalculatorHub";
+import { CALCULATORS } from "@/lib/calculators";
 import { PricingTable } from "@/components/marketing/PricingTable";
 import { Kicker, CaveatNote } from "@/components/ui/primitives";
 import { CheckIcon } from "@/components/ui/icons";
@@ -66,14 +67,22 @@ export default function HomePage() {
 
       {/* 2. Calculator hub */}
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="mb-6">
-          <Kicker>Free tools</Kicker>
-          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-900">
-            Start with a calculator
-          </h2>
-          <p className="mt-1 max-w-2xl text-sm text-neutral-500">
-            Each tool solves one real problem and lives at its own URL. No sign-up to try them.
-          </p>
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <Kicker>Free tools</Kicker>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-900">
+              Start with a calculator
+            </h2>
+            <p className="mt-1 max-w-2xl text-sm text-neutral-500">
+              Each tool solves one real problem and lives at its own URL. No sign-up to try them.
+            </p>
+          </div>
+          <Link
+            href="/calculators"
+            className="shrink-0 text-sm font-medium text-accent-700 hover:underline"
+          >
+            All {CALCULATORS.length} calculators →
+          </Link>
         </div>
         <CalculatorHub />
       </section>
