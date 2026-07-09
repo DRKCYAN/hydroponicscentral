@@ -24,9 +24,10 @@ export default function HomePage() {
             <div className="mt-4 max-w-2xl space-y-3 text-base leading-relaxed text-neutral-600">
               <p>
                 A spare tent and a couple of reservoirs can out-produce a backyard plot several
-                times over — basil sold to restaurants, strawberries in a garage through winter,
-                lettuce turning over every three weeks. Then the plants yellow, curl, and stall,
-                and the bottle label doesn&apos;t tell you why.
+                times over — that&apos;s how hydroponics pays: basil sold to restaurants,
+                strawberries in a garage through winter, lettuce turning over every three weeks.
+                Then the plants yellow, curl, and stall, and the water chemistry that kills them
+                never shows up on the bottle label.
               </p>
               <p>
                 The label assumes distilled water; yours already has calcium and alkalinity in it.
@@ -37,7 +38,8 @@ export default function HomePage() {
                 </span>
               </p>
               <p>
-                Hydroponicity is the nutrient calculator built for side-hustle growers. Tell it
+                Hydroponicity is the hydroponics nutrient calculator built for side-hustle
+                growers. Tell it
                 your water, your salts, and what you&apos;re growing, and it solves the exact grams
                 of each fertilizer — corrected for your tap, checked for precipitation, matched to
                 your pH. You get a number you can trust and the reason it&apos;s right.
