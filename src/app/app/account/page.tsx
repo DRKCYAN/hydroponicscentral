@@ -41,8 +41,8 @@ export default async function AccountPage() {
         <Card>
           <CardHeader title="Profile" />
           <div className="space-y-3 p-5 text-sm">
-            <Row label="Name" value={profile?.display_name ?? user.email?.split("@")[0] ?? "—"} />
-            <Row label="Email" value={user.email ?? "—"} />
+            <Row label="Name" value={profile?.display_name ?? user.email?.split("@")[0] ?? "-"} />
+            <Row label="Email" value={user.email ?? "-"} />
             <Row label="Systems" value={`${systemCount ?? 0} configured`} />
           </div>
           <div className="border-t border-neutral-100 px-5 pb-5 pt-4">
@@ -65,8 +65,8 @@ export default async function AccountPage() {
               {tier === "free"
                 ? "You're on the Free plan. Upgrade to Pro to unlock the multi-salt recipe solver and persistence."
                 : tier === "pro"
-                  ? "You're on Pro — the full multi-salt solver bundle with persistence."
-                  : "You're on Pro + Reservoir — the full solver bundle plus reservoir management."}
+                  ? "You're on Pro: the full multi-salt solver bundle with persistence."
+                  : "You're on Pro + Reservoir: the full solver bundle plus reservoir management."}
             </p>
             <div className="mt-4 flex gap-2">
               <Link href="/pricing">

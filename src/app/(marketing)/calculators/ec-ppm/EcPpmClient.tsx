@@ -36,7 +36,7 @@ export function EcPpmClient() {
       </h1>
       <p className="mt-2 text-neutral-600">
         Meters report either EC or a “ppm” that is just EC scaled by a standard. There is no single
-        true conversion — it depends on the meter&apos;s scale, so always store which scale a ppm
+        true conversion: it depends on the meter&apos;s scale, so always store which scale a ppm
         value came from.
       </p>
 
@@ -129,7 +129,7 @@ export function EcPpmClient() {
       <div className="mt-6">
         <CaveatNote>
           1000 ppm on a 500-scale meter is <strong>not</strong> 1000 ppm on a 700-scale meter. When
-          you share or store a ppm number, record the scale alongside it — otherwise the value is
+          you share or store a ppm number, record the scale alongside it: otherwise the value is
           ambiguous by up to 40%.
         </CaveatNote>
       </div>

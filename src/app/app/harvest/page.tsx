@@ -41,7 +41,7 @@ export default async function HarvestLogPage() {
       <Card>
         <CardHeader
           title="Harvests"
-          subtitle="Marketable yield < gross yield — culls aren't revenue"
+          subtitle="Marketable yield < gross yield: culls aren't revenue"
         />
         {rows.length === 0 ? (
           <div className="p-10 text-center">
@@ -74,13 +74,13 @@ export default async function HarvestLogPage() {
                       <td className="px-5 py-3 text-neutral-600">{h.harvested_at}</td>
                       <td className="px-3 py-3">
                         <div className="font-medium text-neutral-800">{h.crop}</div>
-                        <div className="text-xs text-neutral-400">{h.systems?.name ?? "—"}</div>
+                        <div className="text-xs text-neutral-400">{h.systems?.name ?? "-"}</div>
                       </td>
                       <td className="px-3 py-3 text-right">
                         <UnitValue value={fmt(h.fresh_kg, 1)} unit="kg" />
                       </td>
                       <td className="px-3 py-3 text-right num text-neutral-600">
-                        {h.units ?? "—"}
+                        {h.units ?? "-"}
                       </td>
                       <td className="px-3 py-3 text-right num text-neutral-600">
                         {fmt(gradeA * 100, 0)}%

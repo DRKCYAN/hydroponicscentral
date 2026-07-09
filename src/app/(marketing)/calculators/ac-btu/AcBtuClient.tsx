@@ -29,7 +29,7 @@ export function AcBtuClient() {
         AC / BTU sizing calculator
       </h1>
       <p className="mt-2 text-neutral-600">
-        In a sealed grow room, every electrical watt becomes heat the AC must pump back out —
+        In a sealed grow room, every electrical watt becomes heat the AC must pump back out:
         lights, fans, pumps, and especially the dehumidifier, which returns all its power to the
         room as warmth.
       </p>
@@ -50,7 +50,7 @@ export function AcBtuClient() {
             <Field
               label="Other equipment"
               unit="W"
-              hint="Fans, pumps, controllers, CO₂ gear — everything else that draws power in the room."
+              hint="Fans, pumps, controllers, CO₂ gear: everything else that draws power in the room."
             >
               <input
                 className={`${inputClass} num`}
@@ -91,10 +91,10 @@ export function AcBtuClient() {
                 <>
                   Nearest standard unit:{" "}
                   <strong className="num">{fmtInt(standard)}</strong> BTU/hr. Mildly oversized is
-                  fine — grossly oversized short-cycles and dehumidifies poorly.
+                  fine; grossly oversized short-cycles and dehumidifies poorly.
                 </>
               ) : (
-                <>Above common single-unit sizes — consider multiple units or a split system.</>
+                <>Above common single-unit sizes: consider multiple units or a split system.</>
               )}
             </div>
           </div>

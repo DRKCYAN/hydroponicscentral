@@ -58,7 +58,7 @@ export function LabelDecoderClient() {
       </h1>
       <p className="mt-2 text-neutral-600">
         A guaranteed-analysis label reports P and K as oxides (P₂O₅, K₂O). Every ppm calculation
-        needs the <em>elemental</em> fraction. Enter the label numbers to decode them — do this
+        needs the <em>elemental</em> fraction. Enter the label numbers to decode them. Do this
         first, before any dosing math.
       </p>
 
@@ -133,7 +133,7 @@ export function LabelDecoderClient() {
       <div className="mt-6">
         <CaveatNote>
           Store %element for the <strong>actual product form you buy</strong> (the hydrated salt),
-          not the anhydrous salt. Epsom salt is MgSO₄·7H₂O at 9.9% Mg — the anhydrous figure (20.2%)
+          not the anhydrous salt. Epsom salt is MgSO₄·7H₂O at 9.9% Mg: the anhydrous figure (20.2%)
           would halve your weigh-out. When the label and a table disagree, trust the label.
         </CaveatNote>
       </div>

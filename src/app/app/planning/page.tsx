@@ -62,7 +62,7 @@ export default function PlanningPage() {
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <Card>
-          <CardHeader title="Assumptions" subtitle="All user inputs — no universal values" />
+          <CardHeader title="Assumptions" subtitle="All user inputs: no universal values" />
           <div className="grid grid-cols-2 gap-4 p-5">
             <Field label="CapEx" unit="$"><input className={`${inputClass} num`} value={capex} onChange={(e) => setCapex(e.target.value)} /></Field>
             <Field label="OpEx / year" unit="$"><input className={`${inputClass} num`} value={opexYear} onChange={(e) => setOpexYear(e.target.value)} /></Field>
@@ -90,16 +90,16 @@ export default function PlanningPage() {
           </Card>
 
           <Card>
-            <CardHeader title="Investment decision" subtitle="Time value of money — the metrics to actually trust" />
+            <CardHeader title="Investment decision" subtitle="Time value of money: the metrics to actually trust" />
             <div className="grid grid-cols-2 gap-4 p-5 sm:grid-cols-4">
               <Stat label="NPV" value={fmtMoney(projectNpv)} tone={npvGood ? "ok" : "danger"} hint={`@ ${discount}%`} />
-              <Stat label="IRR" value={projectIrr != null ? fmtPct(projectIrr * 100, 1) : "—"} tone={projectIrr != null && projectIrr > n(discount) / 100 ? "ok" : "caution"} />
+              <Stat label="IRR" value={projectIrr != null ? fmtPct(projectIrr * 100, 1) : "-"} tone={projectIrr != null && projectIrr > n(discount) / 100 ? "ok" : "caution"} />
               <Stat label="Payback" value={fmt(payback, 1)} unit="yr" />
               <Stat label="LCOP" value={fmtMoney(levelized)} unit="/unit" hint="sell above this" />
             </div>
             <div className="px-5 pb-5">
               <CaveatNote>
-                Simple payback and ROI ignore the time value of money — screening tools only. NPV and
+                Simple payback and ROI ignore the time value of money: screening tools only. NPV and
                 IRR are the metrics to trust for invest / don&apos;t-invest. CapEx is annualized via
                 the capital recovery factor, not expensed in year one.
               </CaveatNote>

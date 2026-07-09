@@ -56,7 +56,7 @@ export function DilutionClient() {
         Dilution &amp; injector calculator
       </h1>
       <p className="mt-2 text-neutral-600">
-        Every dilution is the same equation — C₁V₁ = C₂V₂. Pick the value you don&apos;t know,
+        Every dilution is the same equation: C₁V₁ = C₂V₂. Pick the value you don&apos;t know,
         enter the other three in whatever units you use (just keep them consistent), and read the
         answer.
       </p>
@@ -109,7 +109,7 @@ export function DilutionClient() {
                 size="xl"
               />
               <div className="mt-0.5 text-xs text-neutral-400">
-                Concentration factor {cf === Infinity ? "—" : `${fmt(cf, 0)}×`}
+                Concentration factor {cf === Infinity ? "-" : `${fmt(cf, 0)}×`}
               </div>
             </div>
           </div>
@@ -142,8 +142,8 @@ export function DilutionClient() {
                 value={convention}
                 onChange={(e) => setConvention(e.target.value as InjectorConvention)}
               >
-                <option value="A">A — 1 part concentrate : R parts water</option>
-                <option value="B">B — 1 : R of the final solution</option>
+                <option value="A">A (1 part concentrate : R parts water)</option>
+                <option value="B">B (1 : R of the final solution)</option>
               </select>
             </Field>
 
@@ -153,7 +153,7 @@ export function DilutionClient() {
               </div>
               <UnitValue value={fmt(stockC, 0)} unit="ppm / EC" size="xl" />
               <div className="mt-0.5 text-xs text-neutral-400">
-                = {injectorCf === Infinity ? "—" : `${fmt(injectorCf, 0)}×`} the working strength
+                = {injectorCf === Infinity ? "-" : `${fmt(injectorCf, 0)}×`} the working strength
               </div>
             </div>
 
@@ -170,7 +170,7 @@ export function DilutionClient() {
 
       <div className="mt-6">
         <CaveatNote>
-          Check which convention your injector&apos;s manual uses before mixing stock — “1:100”
+          Check which convention your injector&apos;s manual uses before mixing stock: “1:100”
           means different math on different brands (C×101 vs C×100). At high concentration
           factors, also watch salt solubility limits in the stock tank.
         </CaveatNote>

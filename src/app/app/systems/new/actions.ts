@@ -20,7 +20,7 @@ export async function createSystem(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { error: "Sign in to save your system — it needs an account to live in." };
+  if (!user) return { error: "Sign in to save your system: it needs an account to live in." };
 
   const name = String(formData.get("name") ?? "").trim();
   const type = String(formData.get("type") ?? "") as SystemType;

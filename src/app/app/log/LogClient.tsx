@@ -54,7 +54,7 @@ export function LogClient({
         <PageHeader
           verb="Record"
           title="Log Entry"
-          description="A routine reading — used constantly, so it stays a few-second interaction."
+          description="A routine reading: used constantly, so it stays a few-second interaction."
         />
         <Card className="p-10 text-center">
           <p className="text-sm text-neutral-500">
@@ -73,7 +73,7 @@ export function LogClient({
       <PageHeader
         verb="Record"
         title="Log Entry"
-        description="A routine reading — used constantly, so it stays a few-second interaction. Derived values compute as you type."
+        description="A routine reading: used constantly, so it stays a few-second interaction. Derived values compute as you type."
       />
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
@@ -167,7 +167,7 @@ export function LogClient({
                     Sign in to save
                   </Link>
                   <span className="text-xs text-neutral-500">
-                    Everything above works without an account — an account is
+                    Everything above works without an account: an account is
                     only needed to keep your readings.
                   </span>
                 </>
@@ -191,7 +191,7 @@ export function LogClient({
               <div>
                 <div className="text-xs text-neutral-500">EC (corrected to 25 °C)</div>
                 <UnitValue
-                  value={ecCorrected != null ? fmt(ecCorrected, 2) : "—"}
+                  value={ecCorrected != null ? fmt(ecCorrected, 2) : "-"}
                   unit="mS/cm"
                   size="lg"
                   tone={ecS ?? "muted"}
@@ -211,7 +211,7 @@ export function LogClient({
               <div>
                 <div className="text-xs text-neutral-500">pH</div>
                 <UnitValue
-                  value={!isNaN(phNum) ? fmt(phNum, 1) : "—"}
+                  value={!isNaN(phNum) ? fmt(phNum, 1) : "-"}
                   unit=""
                   size="lg"
                   tone={phS ?? "muted"}

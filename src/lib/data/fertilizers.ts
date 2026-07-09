@@ -26,7 +26,7 @@ export const FERTILIZERS: FertilizerEntry[] = [
     label: "15.5-0-0 · 19% Ca",
     shared: true,
     fractions: { N: 0.155, Ca: 0.19 },
-    safety: "Calcium source — keep in Stock A, never with sulfate/phosphate.",
+    safety: "Calcium source: keep in Stock A, never with sulfate/phosphate.",
   },
   {
     id: "kno3",
@@ -45,7 +45,7 @@ export const FERTILIZERS: FertilizerEntry[] = [
     label: "0-52-34",
     shared: true,
     fractions: { P: 0.228, K: 0.287 },
-    safety: "Phosphate — Stock B only (precipitates with calcium).",
+    safety: "Phosphate: Stock B only (precipitates with calcium).",
   },
   {
     id: "map",
@@ -55,7 +55,7 @@ export const FERTILIZERS: FertilizerEntry[] = [
     label: "12-61-0",
     shared: true,
     fractions: { N: 0.122, P: 0.269 },
-    safety: "Phosphate — Stock B only.",
+    safety: "Phosphate: Stock B only.",
   },
   {
     id: "kso4",
@@ -65,7 +65,7 @@ export const FERTILIZERS: FertilizerEntry[] = [
     label: "0-0-50 · 18% S",
     shared: true,
     fractions: { K: 0.449, S: 0.184 },
-    safety: "Sulfate — Stock B only.",
+    safety: "Sulfate: Stock B only.",
   },
   {
     id: "epsom",
@@ -75,7 +75,7 @@ export const FERTILIZERS: FertilizerEntry[] = [
     label: "9.9% Mg · 13% S",
     shared: true,
     fractions: { Mg: 0.099, S: 0.13 },
-    safety: "Heptahydrate — anhydrous figure (20.2% Mg) would DOUBLE the dose.",
+    safety: "Heptahydrate: anhydrous figure (20.2% Mg) would DOUBLE the dose.",
   },
   {
     id: "cacl2",
@@ -85,7 +85,7 @@ export const FERTILIZERS: FertilizerEntry[] = [
     label: "27.3% Ca",
     shared: true,
     fractions: { Ca: 0.273, Cl: 0.483 },
-    safety: "Check hydration form on the bag — anhydrous is 36.1% Ca.",
+    safety: "Check hydration form on the bag: anhydrous is 36.1% Ca.",
   },
   {
     id: "kcl",

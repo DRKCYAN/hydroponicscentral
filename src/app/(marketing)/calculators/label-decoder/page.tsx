@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LabelDecoderClient } from "./LabelDecoderClient";
 
 export const metadata: Metadata = {
-  title: "Fertilizer Label Decoder — oxide to elemental (free)",
+  title: "Fertilizer Label Decoder: Oxide to Elemental (free)",
   description:
     "Convert a guaranteed-analysis N-P-K label (P₂O₅ and K₂O oxides) into the elemental percentages ppm math needs. Free, no signup.",
   alternates: { canonical: "/calculators/label-decoder" },

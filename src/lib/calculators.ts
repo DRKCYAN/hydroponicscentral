@@ -67,7 +67,7 @@ export const CALCULATORS: CalcEntry[] = [
     category: "Nutrients & Water",
     query: "“nutrient dilution calculator”",
     blurb:
-      "Solve C₁V₁ = C₂V₂ for any missing value, and size stock concentrate for a 1:R injector — with the ratio convention made explicit.",
+      "Solve C₁V₁ = C₂V₂ for any missing value, and size stock concentrate for a 1:R injector, with the ratio convention made explicit.",
     tag: "Free",
   },
 

@@ -11,7 +11,7 @@ export default function SolverPage() {
       <PageHeader
         verb="Decide"
         title="Recipe Solver"
-        description="State the target profile; the engine computes the mix. Solving is reversible experimentation — activating a recipe is a separate, explicit commit."
+        description="State the target profile; the engine computes the mix. Solving is reversible experimentation: activating a recipe is a separate, explicit commit."
         actions={<StatusPill status="ok">Pro · unlocked</StatusPill>}
       />
       <RecipeSolver tier="pro" />

@@ -120,7 +120,7 @@ export default async function HistoryPage() {
                 <div className="flex items-end justify-between p-5">
                   <div>
                     <UnitValue
-                      value={ecSeries.length > 0 ? fmt(ecSeries[ecSeries.length - 1], 2) : "—"}
+                      value={ecSeries.length > 0 ? fmt(ecSeries[ecSeries.length - 1], 2) : "-"}
                       unit="mS/cm"
                       size="lg"
                     />
@@ -148,7 +148,7 @@ export default async function HistoryPage() {
 
       <Card className="mt-6">
         <CardHeader
-          title="Sodium accumulation — illustrative"
+          title="Sodium accumulation (illustrative)"
           subtitle="Na climbs across top-off cycles even when EC looks managed [II-6.2]"
         />
         <div className="flex items-end justify-between p-5">

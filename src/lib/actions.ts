@@ -23,14 +23,14 @@ export function nextAction(s: DbSystem): NextAction {
     return {
       status: "danger",
       label: "Top off / refill reservoir",
-      detail: `Reservoir at ${reservoirPct}% — below the 30% pump-safety floor.`,
+      detail: `Reservoir at ${reservoirPct}%: below the 30% pump-safety floor.`,
     };
   }
   if (ecS === "danger") {
     const high = ec > s.ec_target;
     return {
       status: "danger",
-      label: high ? "Partial refresh — EC high" : "Dose nutrients — EC low",
+      label: high ? "Partial refresh: EC high" : "Dose nutrients: EC low",
       detail: `EC ${ec} vs target ${s.ec_target} mS/cm.`,
     };
   }
@@ -45,7 +45,7 @@ export function nextAction(s: DbSystem): NextAction {
   if (ecS === "caution" || phS === "caution") {
     return {
       status: "caution",
-      label: "Watch drift — small correction soon",
+      label: "Watch drift: small correction soon",
       detail:
         ecS === "caution"
           ? `EC drifting: ${ec} vs ${s.ec_target}.`
@@ -59,5 +59,5 @@ export function nextAction(s: DbSystem): NextAction {
       detail: `Reservoir at ${reservoirPct}%.`,
     };
   }
-  return { status: "ok", label: "Holding — no action", detail: "All readings in range." };
+  return { status: "ok", label: "Holding: no action", detail: "All readings in range." };
 }

@@ -4,14 +4,14 @@ import { CALCULATORS, CALC_CATEGORIES, calcHref } from "@/lib/calculators";
 import { Kicker } from "@/components/ui/primitives";
 
 export const metadata: Metadata = {
-  title: "Free Hydroponics Calculators — Nutrients, Climate, Lighting & More",
+  title: "Free Hydroponics Calculators: Nutrients, Climate, Lighting & More",
   description:
-    "Fourteen free grow-room calculators — nutrient mixing, EC/ppm, VPD, AC and dehumidifier sizing, CO₂, PPFD, electricity cost, and yield. No signup.",
+    "Fourteen free grow-room calculators: nutrient mixing, EC/ppm, VPD, AC and dehumidifier sizing, CO₂, PPFD, electricity cost, and yield. No signup.",
   alternates: { canonical: "/calculators" },
   openGraph: {
     title: "Free hydroponics calculators",
     description:
-      "Nutrients, climate, lighting, irrigation, and economics — every grow-room calculation in one place.",
+      "Nutrients, climate, lighting, irrigation, and economics: every grow-room calculation in one place.",
     url: "/calculators",
   },
 };
@@ -24,7 +24,7 @@ export default function Page() {
         Hydroponics calculators
       </h1>
       <p className="mt-2 max-w-2xl text-neutral-600">
-        Every calculator runs the same engine that powers the Hydroponicity app — real formulas
+        Every calculator runs the same engine that powers the Hydroponicity app: real formulas
         with the assumptions stated, free and without signup. Pick the question you&apos;re
         trying to answer.
       </p>

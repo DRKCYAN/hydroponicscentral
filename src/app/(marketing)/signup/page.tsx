@@ -9,7 +9,7 @@ import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { createClient } from "@/lib/supabase/server";
 import { signUp } from "./actions";
 
-export const metadata: Metadata = { title: "Create account — Hydroponicity" };
+export const metadata: Metadata = { title: "Create account" };
 
 export default async function SignupPage({
   searchParams,

@@ -3,7 +3,7 @@ import { PricingTable } from "@/components/marketing/PricingTable";
 import { Kicker, CaveatNote } from "@/components/ui/primitives";
 
 export const metadata: Metadata = {
-  title: "Pricing — Free, Pro & Reservoir add-on",
+  title: "Pricing: Free, Pro & Reservoir add-on",
   description:
     "Free calculators, a Pro multi-salt recipe solver with persistence, and a reservoir add-on for recirculating systems. Simple monthly pricing.",
 };

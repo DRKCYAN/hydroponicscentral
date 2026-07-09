@@ -8,7 +8,7 @@ import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { createClient } from "@/lib/supabase/server";
 import { signIn } from "./actions";
 
-export const metadata: Metadata = { title: "Sign in — Hydroponicity" };
+export const metadata: Metadata = { title: "Sign in" };
 
 export default async function LoginPage({
   searchParams,
@@ -49,7 +49,7 @@ export default async function LoginPage({
               {error === "invalid_credentials"
                 ? "Incorrect email or password."
                 : error === "email_not_confirmed"
-                  ? "Please confirm your email address before signing in — check your inbox for the confirmation link."
+                  ? "Please confirm your email address before signing in. Check your inbox for the confirmation link."
                   : error === "auth_error"
                     ? "Something went wrong. Please try again."
                     : "An error occurred. Please try again."}

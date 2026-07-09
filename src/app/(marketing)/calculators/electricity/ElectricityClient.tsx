@@ -69,7 +69,7 @@ export function ElectricityClient() {
       </h1>
       <p className="mt-2 text-neutral-600">
         List everything that draws power and how long it runs. Lights dominate, but the 24-hour
-        small loads — fans, pumps, controllers — add up, and the AC pays again for every watt of
+        small loads (fans, pumps, controllers) add up, and the AC pays again for every watt of
         heat the rest produce.
       </p>
 
@@ -197,7 +197,7 @@ export function ElectricityClient() {
 
       <div className="mt-6">
         <CaveatNote>
-          Uses nameplate wattage — drivers and ballasts often draw 5–10% above the lamp rating,
+          Uses nameplate wattage: drivers and ballasts often draw 5–10% above the lamp rating,
           and utilities may bill tiered or time-of-use rates rather than one flat $/kWh. Check a
           real bill for your marginal rate.
         </CaveatNote>

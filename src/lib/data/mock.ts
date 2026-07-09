@@ -78,7 +78,7 @@ export const WATER_PROFILES: WaterProfile[] = [
 export const SYSTEMS: SystemContext[] = [
   {
     id: "tent-1",
-    name: "Tent 1 — Lettuce raft",
+    name: "Tent 1: Lettuce raft",
     type: "DWC",
     reservoirL: 120,
     crop: "Lettuce / leafy greens",
@@ -100,7 +100,7 @@ export const SYSTEMS: SystemContext[] = [
   },
   {
     id: "rack-2",
-    name: "Rack 2 — Tomato drip",
+    name: "Rack 2: Tomato drip",
     type: "Drip",
     reservoirL: 200,
     crop: "Tomato",
@@ -122,7 +122,7 @@ export const SYSTEMS: SystemContext[] = [
   },
   {
     id: "nft-3",
-    name: "NFT 3 — Basil channels",
+    name: "NFT 3: Basil channels",
     type: "NFT",
     reservoirL: 80,
     crop: "Basil / herbs",
@@ -186,7 +186,7 @@ export interface HarvestRow {
 export const HARVESTS: HarvestRow[] = [
   {
     at: "2026-06-20",
-    system: "Tent 1 — Lettuce raft",
+    system: "Tent 1: Lettuce raft",
     crop: "Lettuce",
     freshKg: 14.2,
     units: 96,
@@ -195,7 +195,7 @@ export const HARVESTS: HarvestRow[] = [
   },
   {
     at: "2026-05-30",
-    system: "Rack 2 — Tomato drip",
+    system: "Rack 2: Tomato drip",
     crop: "Tomato",
     freshKg: 38.6,
     units: 210,

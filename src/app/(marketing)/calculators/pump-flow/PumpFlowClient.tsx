@@ -33,8 +33,8 @@ export function PumpFlowClient() {
         Pump &amp; irrigation flow rate calculator
       </h1>
       <p className="mt-2 text-neutral-600">
-        A pump has to satisfy two demands — turning the reservoir over for oxygen and mixing, and
-        feeding every emitter at once — and it has to do it at height, where its rated GPH has
+        A pump has to satisfy two demands (turning the reservoir over for oxygen and mixing, and
+        feeding every emitter at once) and it has to do it at height, where its rated GPH has
         already fallen off.
       </p>
 
@@ -148,14 +148,14 @@ export function PumpFlowClient() {
 
       <div className="mt-6">
         <CaveatNote>
-          The friction allowance is a flat estimate, not a hydraulic calculation — long runs of
+          The friction allowance is a flat estimate, not a hydraulic calculation: long runs of
           narrow tubing, drip manifolds, and venturis can lose far more. When in doubt, one pump
           size up costs a few watts; an undersized pump starves the far emitters first, silently.
         </CaveatNote>
       </div>
 
       <p className="mt-8 text-sm text-neutral-500">
-        Now that the water moves — what&apos;s in it?{" "}
+        Now that the water moves, what&apos;s in it?{" "}
         <Link
           href="/calculators/recipe-solver"
           className="font-medium text-accent-700 hover:underline"

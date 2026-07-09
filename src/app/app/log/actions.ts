@@ -17,7 +17,7 @@ export async function saveLogEntry(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { error: "Sign in to save readings — your data needs an account to live in." };
+  if (!user) return { error: "Sign in to save readings: your data needs an account to live in." };
 
   const systemId = formData.get("systemId") as string;
   const ec = parseFloat(formData.get("ec") as string);

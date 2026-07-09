@@ -62,7 +62,7 @@ export function PpfdClient() {
         Grow light coverage &amp; PPFD calculator
       </h1>
       <p className="mt-2 text-neutral-600">
-        Watts don&apos;t grow plants — photons do. Wattage × efficacy gives the photon flux (PPF);
+        Watts don&apos;t grow plants. Photons do. Wattage × efficacy gives the photon flux (PPF);
         spread over your canopy it becomes PPFD, and PPFD × hours becomes the daily light integral
         the crop actually experiences.
       </p>
@@ -206,7 +206,7 @@ export function PpfdClient() {
 
       <div className="mt-6">
         <CaveatNote>
-          This assumes photons spread evenly with 90% reaching the canopy — real fixtures run
+          This assumes photons spread evenly with 90% reaching the canopy: real fixtures run
           hotter in the center and dimmer at the edges, and hanging height changes the map. Treat
           it as a shopping estimate; verify with a PAR meter or the manufacturer&apos;s PPFD chart.
           Above ~1000 µmol/m²/s, plants need CO₂ enrichment to use the extra light.
@@ -214,7 +214,7 @@ export function PpfdClient() {
       </div>
 
       <p className="mt-8 text-sm text-neutral-500">
-        Every one of those watts becomes heat —{" "}
+        Every one of those watts becomes heat:{" "}
         <Link href="/calculators/ac-btu" className="font-medium text-accent-700 hover:underline">
           size the cooling →
         </Link>{" "}

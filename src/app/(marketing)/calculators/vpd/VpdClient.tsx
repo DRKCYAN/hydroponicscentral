@@ -61,7 +61,7 @@ export function VpdClient() {
         VPD calculator
       </h1>
       <p className="mt-2 text-neutral-600">
-        Vapor pressure deficit — not RH alone — is what drives transpiration. The same 60% RH is
+        Vapor pressure deficit (not RH alone) is what drives transpiration. The same 60% RH is
         gentle at 20 °C and punishing at 30 °C. Leaves run cooler than the air, so leaf VPD is the
         number worth steering.
       </p>
@@ -141,8 +141,8 @@ export function VpdClient() {
                   {inRange
                     ? "In target range"
                     : leaf < lo
-                      ? "Low — sluggish transpiration, damp-off risk"
-                      : "High — stress / wilting risk"}
+                      ? "Low: sluggish transpiration, damp-off risk"
+                      : "High: stress / wilting risk"}
                 </StatusPill>
               </div>
               <UnitValue value={fmt(leaf, 2)} unit="kPa" size="xl" />
@@ -153,7 +153,7 @@ export function VpdClient() {
               value={fmt(unit === "f" ? cToF(dpC) : dpC, 1)}
               unit={degUnit}
               tone="muted"
-              hint="Surfaces colder than this will condense — keep lights-off temps above it."
+              hint="Surfaces colder than this will condense: keep lights-off temps above it."
             />
             <div className="rounded-md bg-neutral-50 p-3 text-xs text-neutral-500">
               To sit mid-band ({fmt((lo + hi) / 2, 2)} kPa) at this air temperature you&apos;d need
@@ -166,7 +166,7 @@ export function VpdClient() {
       <div className="mt-6">
         <CaveatNote>
           Stage bands are rules of thumb, and the leaf offset default (−2 °C) is typical under
-          LEDs — HPS canopies often run warmer than the air. VPD moves fast with temperature, so
+          LEDs; HPS canopies often run warmer than the air. VPD moves fast with temperature, so
           re-check after any lighting or HVAC change.
         </CaveatNote>
       </div>

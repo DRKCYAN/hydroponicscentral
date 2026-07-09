@@ -174,7 +174,7 @@ export function DehumidifierClient() {
 
       <div className="mt-6">
         <CaveatNote>
-          Pint ratings (AHAM) are measured at 80 °F / 60% RH — in a cooler room or at a lower RH
+          Pint ratings (AHAM) are measured at 80 °F / 60% RH; in a cooler room or at a lower RH
           setpoint the same unit removes much less, which is what the 1.3× factor covers. If your
           AC runs constantly it also removes water; this sizing treats the dehumidifier as doing
           all the work.

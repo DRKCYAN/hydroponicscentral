@@ -13,11 +13,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://hydroponicity.com"),
   title: {
-    default: "Hydroponicity — Nutrient calculator for side-hustle growers",
+    default: "Hydroponicity: Nutrient calculator for side-hustle growers",
     template: "%s · Hydroponicity",
   },
   description:
-    "Free hydroponics calculators and a real multi-salt nutrient recipe solver — EC to ppm, VPD, fertilizer label decoder, and more. No signup needed.",
+    "Free hydroponics calculators and a real multi-salt nutrient recipe solver: EC to ppm, VPD, fertilizer label decoder, and more. No signup needed.",
   applicationName: "Hydroponicity",
   keywords: [
     "hydroponics nutrient calculator",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Hydroponicity",
-    title: "Hydroponicity — Nutrient calculator for side-hustle growers",
+    title: "Hydroponicity: Nutrient calculator for side-hustle growers",
     description:
-      "A real multi-salt recipe solver, source-water correction, and ion balance — research-grade math with an operator-friendly surface.",
+      "A real multi-salt recipe solver, source-water correction, and ion balance: research-grade math with an operator-friendly surface.",
     url: "/",
     images: [{ url: "/og.svg", width: 1200, height: 630, type: "image/svg+xml" }],
   },

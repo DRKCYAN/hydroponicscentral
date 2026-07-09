@@ -35,7 +35,7 @@ export function NewSystemClient({
       <PageHeader
         verb="Configure"
         title="New System"
-        description="A system is one physical setup — it owns its reservoir, targets, and readings. Crop presets prefill sensible targets; tune them to your setup."
+        description="A system is one physical setup: it owns its reservoir, targets, and readings. Crop presets prefill sensible targets; tune them to your setup."
       />
 
       <div className="max-w-2xl">
@@ -49,7 +49,7 @@ export function NewSystemClient({
               <input
                 name="name"
                 className={inputClass}
-                placeholder="e.g. Tent 1 — Lettuce raft"
+                placeholder="e.g. Tent 1: Lettuce raft"
                 required
               />
             </Field>
@@ -88,7 +88,7 @@ export function NewSystemClient({
               >
                 {CROP_TARGETS.map((c) => (
                   <option key={c.id} value={c.id}>
-                    {c.name} — {c.stage}
+                    {c.name}: {c.stage}
                   </option>
                 ))}
               </select>
@@ -141,7 +141,7 @@ export function NewSystemClient({
             {crop && (
               <CaveatNote tone="info">
                 Preset for {crop.name} ({crop.stage.toLowerCase()}): EC {crop.ecTarget} mS/cm.
-                These are representative starting points — real growers tune them per cultivar
+                These are representative starting points: real growers tune them per cultivar
                 and environment.
               </CaveatNote>
             )}
@@ -162,7 +162,7 @@ export function NewSystemClient({
                     Sign in to save
                   </Link>
                   <span className="text-xs text-neutral-500">
-                    Creating a system stores your data — that&apos;s the one part that
+                    Creating a system stores your data: that&apos;s the one part that
                     needs an account.
                   </span>
                 </>

@@ -131,10 +131,10 @@ export function VentilationClient() {
               value={fmtInt(base)}
               unit="CFM"
               tone="muted"
-              hint={`One full exchange every ${minutes || "—"} min`}
+              hint={`One full exchange every ${minutes || "-"} min`}
             />
             <div className="rounded-md bg-neutral-50 p-3 text-xs text-neutral-500">
-              Pick a carbon filter <strong>rated at or above</strong> the fan&apos;s CFM — an
+              Pick a carbon filter <strong>rated at or above</strong> the fan&apos;s CFM: an
               undersized filter chokes the fan and lets odor slip through at high flow.
             </div>
           </div>
@@ -144,7 +144,7 @@ export function VentilationClient() {
       <div className="mt-6">
         <CaveatNote>
           Percentages are rules of thumb, not duct engineering. A speed-controlled fan one size up
-          beats an exact-size fan at full throttle — quieter, and you keep headroom for a clogged
+          beats an exact-size fan at full throttle, quieter, and you keep headroom for a clogged
           filter (they load up over months). Running CO₂ enrichment? Exhausting during lights-on
           throws that money away.
         </CaveatNote>

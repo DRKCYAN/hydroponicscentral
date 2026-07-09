@@ -34,7 +34,7 @@ export function HumidifierClient() {
         Humidifier sizing calculator
       </h1>
       <p className="mt-2 text-neutral-600">
-        A humidifier isn&apos;t filling the room once — it&apos;s replacing the moisture that
+        A humidifier isn&apos;t filling the room once: it&apos;s replacing the moisture that
         every air exchange carries away. The output you need scales with room volume, the RH gap,
         and how leaky the space is.
       </p>
@@ -133,12 +133,12 @@ export function HumidifierClient() {
               value={fmt(chargeL * 1000, 0)}
               unit="mL"
               tone="muted"
-              hint="Tiny compared to the ongoing load — leakage is the real bill."
+              hint="Tiny compared to the ongoing load: leakage is the real bill."
             />
             <div className="rounded-md bg-neutral-50 p-3 text-xs text-neutral-500">
               Shop for a unit rated ~20% above this (
               <strong className="num">{fmt(loadLDay * 1.2, 1)}</strong> L/day) so it can cycle
-              rather than run flat out — and expect transpiring plants to shrink the load as the
+              rather than run flat out, and expect transpiring plants to shrink the load as the
               canopy fills in.
             </div>
           </div>
@@ -148,7 +148,7 @@ export function HumidifierClient() {
       <div className="mt-6">
         <CaveatNote>
           Assumes make-up air enters at room temperature and your current RH. In winter, infiltrating
-          air is colder and much drier once heated, so real demand runs higher than this estimate —
+          air is colder and much drier once heated, so real demand runs higher than this estimate:
           size up if you heat.
         </CaveatNote>
       </div>
@@ -156,7 +156,7 @@ export function HumidifierClient() {
       <p className="mt-8 text-sm text-neutral-500">
         Chasing an RH number? What actually matters is{" "}
         <Link href="/calculators/vpd" className="font-medium text-accent-700 hover:underline">
-          VPD — calculate it here →
+          VPD: calculate it here →
         </Link>
       </p>
     </div>

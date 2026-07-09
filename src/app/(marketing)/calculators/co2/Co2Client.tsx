@@ -100,7 +100,7 @@ export function Co2Client() {
             <Field
               label="Air exchanges per hour"
               unit="ACH"
-              hint="Sealed room ≈ 0.5–1. Anything with an exhaust fan running is far higher — enrichment fights the fan."
+              hint="Sealed room ≈ 0.5–1. Anything with an exhaust fan running is far higher: enrichment fights the fan."
             >
               <input
                 className={`${inputClass} num`}
@@ -145,14 +145,14 @@ export function Co2Client() {
             />
             <Stat
               label="Time to setpoint at injector rate"
-              value={timeH === Infinity ? "—" : fmt(timeH * 60, 0)}
+              value={timeH === Infinity ? "-" : fmt(timeH * 60, 0)}
               unit={timeH === Infinity ? undefined : "min"}
               tone="muted"
               hint={injectorGh > 0 ? undefined : "Enter an injector rate to estimate this."}
             />
             <div className="rounded-md bg-neutral-50 p-3 text-xs text-neutral-500">
               A 20 lb tank ({fmt(TANK_20LB_G / 1000, 1)} kg) holds setpoint for roughly{" "}
-              <strong className="num">{tankDays === Infinity ? "—" : fmt(tankDays, 1)}</strong>{" "}
+              <strong className="num">{tankDays === Infinity ? "-" : fmt(tankDays, 1)}</strong>{" "}
               days, plus another {fmt(massG, 0)} g each time you vent and re-enrich.
             </div>
           </div>
@@ -163,7 +163,7 @@ export function Co2Client() {
         <CaveatNote>
           Plants consume CO₂ too (roughly 20–50 g/h per kW of light at full canopy), so real usage
           runs above the leakage-only estimate. Never enrich an occupied sealed room without a
-          monitor — 5,000 ppm is the workplace exposure limit.
+          monitor: 5,000 ppm is the workplace exposure limit.
         </CaveatNote>
       </div>
 

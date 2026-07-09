@@ -32,7 +32,7 @@ export default async function SystemsPage() {
       <PageHeader
         verb="Configure"
         title="Systems"
-        description="Each system is a physical setup that owns its own state — active recipe, water source, last reading."
+        description="Each system is a physical setup that owns its own state: active recipe, water source, last reading."
         actions={
           <Link
             href="/app/systems/new"
@@ -88,7 +88,7 @@ export default async function SystemsPage() {
                         <UnitValue value={fmt(s.reservoir_l, 0)} unit="L" />
                       </td>
                       <td className="px-3 py-3 text-neutral-600">
-                        {s.water_sources?.name ?? "—"}
+                        {s.water_sources?.name ?? "-"}
                       </td>
                       <td className="px-3 py-3 text-neutral-600">
                         {s.active_recipe_id ? (

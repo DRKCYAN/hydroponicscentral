@@ -30,8 +30,8 @@ type Tier = "free" | "pro";
 type Targets = Record<(typeof MACRO_ELEMENTS)[number], string>;
 
 const WEIGHT_LABELS: Record<WeightScheme, string> = {
-  relative: "Relative — equal % accuracy across macros & micros",
-  absolute: "Absolute — minimize raw ppm error (macros dominate)",
+  relative: "Relative: equal % accuracy across macros & micros",
+  absolute: "Absolute: minimize raw ppm error (macros dominate)",
   custom: "Custom weights (advanced)",
 };
 
@@ -103,7 +103,7 @@ export function RecipeSolver({ tier = "free" }: { tier?: Tier }) {
               <select className={inputClass} value={cropId} onChange={(e) => applyCrop(e.target.value)}>
                 {CROP_TARGETS.map((c) => (
                   <option key={c.id} value={c.id}>
-                    {c.name} — {c.stage} (EC ~{c.ecTarget})
+                    {c.name}: {c.stage} (EC ~{c.ecTarget})
                   </option>
                 ))}
               </select>
@@ -217,7 +217,7 @@ export function RecipeSolver({ tier = "free" }: { tier?: Tier }) {
                 Set your targets and press <span className="text-accent-700">Solve recipe</span>.
               </p>
               <p className="mt-1 max-w-xs text-xs text-neutral-500">
-                The engine finds the grams of each salt that best hit every target at once — not one
+                The engine finds the grams of each salt that best hit every target at once: not one
                 element at a time.
               </p>
             </div>
@@ -291,7 +291,7 @@ function SourceCorrectionPanel({
             <option value="none">None (mix in pure water)</option>
             {WATER_PROFILES.map((w) => (
               <option key={w.id} value={w.id}>
-                {w.name} — EC {w.ec}, Ca {w.Ca} ppm
+                {w.name}: EC {w.ec}, Ca {w.Ca} ppm
               </option>
             ))}
           </select>
@@ -362,7 +362,7 @@ function SolveOutput({
       <Card>
         <CardHeader
           title="Solved recipe"
-          subtitle={`For a ${fmt(volume, 0)} L batch · ${weightLabel.split("—")[0].trim()} weighting`}
+          subtitle={`For a ${fmt(volume, 0)} L batch · ${weightLabel.split(":")[0].trim()} weighting`}
           right={<StatusPill status="ok">Solved</StatusPill>}
         />
         <div className="p-5">
@@ -405,7 +405,7 @@ function SolveOutput({
           </table>
           {dosed.length === 0 && (
             <p className="py-6 text-center text-sm text-neutral-400">
-              No salt needed — targets already met by the source water.
+              No salt needed: targets already met by the source water.
             </p>
           )}
           <div className="mt-4">
@@ -490,9 +490,9 @@ function SolveOutput({
           ))}
           <CaveatNote>
             {partition.notes[partition.notes.length - 1]} Stock A ={" "}
-            {partition.stockA.map((id) => fertilizerById(id)?.name.split(" (")[0]).join(", ") || "—"}
+            {partition.stockA.map((id) => fertilizerById(id)?.name.split(" (")[0]).join(", ") || "-"}
             . Stock B ={" "}
-            {partition.stockB.map((id) => fertilizerById(id)?.name.split(" (")[0]).join(", ") || "—"}.
+            {partition.stockB.map((id) => fertilizerById(id)?.name.split(" (")[0]).join(", ") || "-"}.
           </CaveatNote>
         </div>
       )}
@@ -512,7 +512,7 @@ function SolveOutput({
           <Button variant="secondary">Export</Button>
           {committed && (
             <span className="text-xs text-neutral-500">
-              Written as this system&apos;s active target — Log & Monitor now compare against it.
+              Written as this system&apos;s active target: Log & Monitor now compare against it.
             </span>
           )}
         </div>
@@ -572,7 +572,7 @@ function IonBalanceCard({
       <div className="px-5 pb-5">
         <CaveatNote tone="info">
           The signed % is directional (+ = cation excess, short on anions), not an error. EC is an
-          empirical approximation (±10–15%) — always confirm with a calibrated meter.
+          empirical approximation (±10–15%): always confirm with a calibrated meter.
         </CaveatNote>
       </div>
     </Card>

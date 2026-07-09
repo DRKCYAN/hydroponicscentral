@@ -5,7 +5,7 @@ import { Kicker, CaveatNote } from "@/components/ui/primitives";
 export const metadata: Metadata = {
   title: "Hydroponic Nutrient Recipe Solver (free)",
   description:
-    "Enter target ppm for N, P, K, Ca, Mg and S and get grams of each fertilizer salt to mix — a real multi-salt solve, not single-salt math. One free solve.",
+    "Enter target ppm for N, P, K, Ca, Mg and S and get grams of each fertilizer salt to mix: a real multi-salt solve, not single-salt math. One free solve.",
 };
 
 export default function RecipeSolverPage() {
@@ -18,7 +18,7 @@ export default function RecipeSolverPage() {
         </h1>
         <p className="mt-2 text-neutral-600">
           Pick a crop target (or type your own ppm), choose your salts, and the engine solves how
-          many grams of each to weigh out — hitting every element at once. This is the real solver,
+          many grams of each to weigh out, hitting every element at once. This is the real solver,
           not a demo.
         </p>
       </div>
@@ -26,7 +26,7 @@ export default function RecipeSolverPage() {
       <div className="mt-6">
         <CaveatNote tone="info">
           Free tier: one live solve with the full multi-salt engine. Source-water correction, ion
-          balance, and saving are Pro — shown below as locked panels so you can see exactly
+          balance, and saving are Pro, shown below as locked panels so you can see exactly
           what&apos;s behind them.
         </CaveatNote>
       </div>

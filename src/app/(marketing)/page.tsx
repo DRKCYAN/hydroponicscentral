@@ -24,7 +24,7 @@ export default function HomePage() {
             <div className="mt-4 max-w-2xl space-y-3 text-base leading-relaxed text-neutral-600">
               <p>
                 A spare tent and a couple of reservoirs can out-produce a backyard plot several
-                times over — that&apos;s how hydroponics pays: basil sold to restaurants,
+                times over; that&apos;s how hydroponics pays: basil sold to restaurants,
                 strawberries in a garage through winter, lettuce turning over every three weeks.
                 Then the plants yellow, curl, and stall, and the water chemistry that kills them
                 never shows up on the bottle label.
@@ -41,7 +41,7 @@ export default function HomePage() {
                 Hydroponicity is the hydroponics nutrient calculator built for side-hustle
                 growers. Tell it
                 your water, your salts, and what you&apos;re growing, and it solves the exact grams
-                of each fertilizer — corrected for your tap, checked for precipitation, matched to
+                of each fertilizer, corrected for your tap, checked for precipitation, matched to
                 your pH. You get a number you can trust and the reason it&apos;s right.
               </p>
             </div>
@@ -60,8 +60,8 @@ export default function HomePage() {
               </Link>
             </div>
             <p className="mt-4 text-xs text-neutral-400">
-              No account needed for the free calculators. The engine keeps the full math intact —
-              the surface just hides what you don&apos;t need day to day.
+              No account needed for the free calculators. The engine keeps the full math intact.
+              The surface just hides what you don&apos;t need day to day.
             </p>
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function HomePage() {
           <div className="mt-8 grid gap-8 md:grid-cols-3">
             <Feature
               title="Multi-salt recipe engine"
-              body="Not a stack of single-salt calculators — a constrained weighted least-squares solve across every fertilizer at once, so one salt's contribution to K doesn't wreck your Mg."
+              body="Not a stack of single-salt calculators: a constrained weighted least-squares solve across every fertilizer at once, so one salt's contribution to K doesn't wreck your Mg."
             />
             <Feature
               title="Reservoir & system tracking"
@@ -107,7 +107,7 @@ export default function HomePage() {
             />
             <Feature
               title="Advanced, yet simple"
-              body="The full engine — source-water correction, ion balance, EC estimate, pH dosing — stays intact underneath. The UI exposes only what a side-hustle grower uses day to day."
+              body="The full engine (source-water correction, ion balance, EC estimate, pH dosing) stays intact underneath. The UI exposes only what a side-hustle grower uses day to day."
             />
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-neutral-600">
               A missed EC or pH warning is a real dosing error, so safety warnings and
-              approximation caveats are always free and always visible — regardless of tier. Every
+              approximation caveats are always free and always visible, regardless of tier. Every
               result traces back to its inputs, so you can verify the math before you weigh
               anything out.
             </p>
@@ -131,7 +131,7 @@ export default function HomePage() {
               {[
                 "Safety warnings never sit behind a paywall",
                 "A collapsible provenance trace on every result",
-                "Units shown next to every number — no unit hidden in a tooltip",
+                "Units shown next to every number: no unit hidden in a tooltip",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
                   <span className="mt-0.5 text-accent-500">
@@ -163,7 +163,7 @@ export default function HomePage() {
             </div>
             <div className="mt-4">
               <CaveatNote>
-                Keep calcium and sulfate in separate stock tanks — they precipitate as gypsum when
+                Keep calcium and sulfate in separate stock tanks: they precipitate as gypsum when
                 concentrated.
               </CaveatNote>
             </div>

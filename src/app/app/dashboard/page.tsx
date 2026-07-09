@@ -41,7 +41,7 @@ export default async function DashboardPage() {
       <PageHeader
         verb="Monitor"
         title="Dashboard"
-        description="One card per system — am I okay, in about three seconds?"
+        description="One card per system: am I okay, in about three seconds?"
         actions={
           total > 0 ? (
             <StatusPill
@@ -79,7 +79,7 @@ export default async function DashboardPage() {
       <div className="mt-6">
         <Card>
           <CardHeader
-            title="Running cost & profit — this cycle"
+            title="Running cost & profit (this cycle)"
             subtitle="Tracking only. Investment analysis lives in Decide › Planning & Economics."
             right={
               <Link
@@ -133,7 +133,7 @@ function SystemCard({ system: s }: { system: DbSystem }) {
         <div>
           <div className="text-xs font-medium text-neutral-500">EC</div>
           <UnitValue
-            value={ec != null ? fmt(ec, 2) : "—"}
+            value={ec != null ? fmt(ec, 2) : "-"}
             unit="mS/cm"
             size="lg"
             tone={ecS ?? "default"}
@@ -142,7 +142,7 @@ function SystemCard({ system: s }: { system: DbSystem }) {
         </div>
         <div>
           <div className="text-xs font-medium text-neutral-500">pH</div>
-          <UnitValue value={ph != null ? fmt(ph, 1) : "—"} unit="" size="lg" tone={phS ?? "default"} />
+          <UnitValue value={ph != null ? fmt(ph, 1) : "-"} unit="" size="lg" tone={phS ?? "default"} />
           <div className="mt-0.5 text-xs text-neutral-400">
             band {s.ph_target_low}–{s.ph_target_high}
           </div>
@@ -150,7 +150,7 @@ function SystemCard({ system: s }: { system: DbSystem }) {
         <div>
           <div className="text-xs font-medium text-neutral-500">Reservoir</div>
           <UnitValue
-            value={s.last_reservoir_pct != null ? s.last_reservoir_pct : "—"}
+            value={s.last_reservoir_pct != null ? s.last_reservoir_pct : "-"}
             unit="%"
             size="lg"
             tone={
@@ -170,13 +170,13 @@ function SystemCard({ system: s }: { system: DbSystem }) {
         <div>
           <div className="text-xs font-medium text-neutral-500">DO · VPD</div>
           <UnitValue
-            value={s.last_do_mg_l != null ? fmt(s.last_do_mg_l, 1) : "—"}
+            value={s.last_do_mg_l != null ? fmt(s.last_do_mg_l, 1) : "-"}
             unit="mg/L"
             size="lg"
             tone={s.last_do_mg_l != null && s.last_do_mg_l < 6 ? "caution" : "default"}
           />
           <div className="mt-0.5 text-xs text-neutral-400">
-            VPD {airVpd != null ? `${fmt(airVpd, 2)} kPa` : "—"}
+            VPD {airVpd != null ? `${fmt(airVpd, 2)} kPa` : "-"}
           </div>
         </div>
       </div>
@@ -211,13 +211,13 @@ function SystemCard({ system: s }: { system: DbSystem }) {
 
       <div className="px-5 pb-4 pt-3">
         <ProvenanceTrace
-          summary={`vs active recipe · water ${s.water_sources?.name ?? "—"}`}
+          summary={`vs active recipe · water ${s.water_sources?.name ?? "-"}`}
           steps={[
             s.last_at
               ? `last log ${new Date(s.last_at).toLocaleString()}`
               : "no readings yet",
             `active recipe: ${s.active_recipe_id ?? "none set"}`,
-            `water source: ${s.water_sources?.name ?? "—"} (EC ${s.water_sources?.ec ?? "—"})`,
+            `water source: ${s.water_sources?.name ?? "-"} (EC ${s.water_sources?.ec ?? "-"})`,
             `EC/pH compared against this system's target`,
           ]}
         />

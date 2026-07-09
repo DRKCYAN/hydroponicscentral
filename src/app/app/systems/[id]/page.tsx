@@ -157,7 +157,7 @@ export default async function SystemDetail({
           <div className="grid grid-cols-2 gap-4 p-5">
             <Stat
               label="Reservoir level"
-              value={s.last_reservoir_pct != null ? s.last_reservoir_pct : "—"}
+              value={s.last_reservoir_pct != null ? s.last_reservoir_pct : "-"}
               unit="%"
               tone={
                 s.last_reservoir_pct == null
@@ -171,13 +171,13 @@ export default async function SystemDetail({
             />
             <Stat
               label="Days since top-off"
-              value={daysSince != null ? daysSince : "—"}
+              value={daysSince != null ? daysSince : "-"}
               unit={daysSince != null ? "d" : ""}
             />
             <Stat label="Turnover time" value={fmt(turnover.hours, 1)} unit="h" />
             <Stat
               label="DO"
-              value={s.last_do_mg_l != null ? fmt(s.last_do_mg_l, 1) : "—"}
+              value={s.last_do_mg_l != null ? fmt(s.last_do_mg_l, 1) : "-"}
               unit={s.last_do_mg_l != null ? "mg/L" : ""}
               tone={s.last_do_mg_l != null && s.last_do_mg_l < 6 ? "caution" : "default"}
             />
@@ -260,10 +260,10 @@ export default async function SystemDetail({
                         </span>
                       </td>
                       <td className="px-3 py-2.5 text-right num text-neutral-600">
-                        {r.temp_c != null ? fmt(r.temp_c, 1) : "—"}
+                        {r.temp_c != null ? fmt(r.temp_c, 1) : "-"}
                       </td>
                       <td className="px-3 py-2.5 text-right num text-neutral-600">
-                        {r.do_mg_l != null ? fmt(r.do_mg_l, 1) : "—"}
+                        {r.do_mg_l != null ? fmt(r.do_mg_l, 1) : "-"}
                       </td>
                       <td className="px-5 py-2.5 text-right num text-neutral-600">
                         {r.top_off_l} L

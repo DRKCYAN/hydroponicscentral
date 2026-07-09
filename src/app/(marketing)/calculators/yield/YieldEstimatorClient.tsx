@@ -153,7 +153,7 @@ export function YieldEstimatorClient() {
 
       <div className="mt-6">
         <CaveatNote>
-          Growth rate is the whole game — it swings with light (DLI), CO₂, temperature, and
+          Growth rate is the whole game: it swings with light (DLI), CO₂, temperature, and
           cultivar, so treat this as a planning envelope, not a promise. Revenue here is gross:
           no seed, nutrient, labor, or electricity costs are subtracted.
         </CaveatNote>
