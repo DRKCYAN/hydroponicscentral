@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { CALCULATORS, calcHref } from "@/lib/calculators";
+import { CALCULATORS, CALCULATORS_LAST_MODIFIED, calcHref } from "@/lib/calculators";
 
 const BASE = "https://hydroponicity.com";
 
@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE}${calcHref(t.slug)}`,
       changeFrequency: "monthly" as const,
       priority: 0.9,
+      lastModified: CALCULATORS_LAST_MODIFIED,
     })),
     { url: `${BASE}/pricing`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE}/about`, changeFrequency: "monthly", priority: 0.5 },
