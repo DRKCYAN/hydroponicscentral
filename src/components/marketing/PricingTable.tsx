@@ -29,7 +29,7 @@ export function PricingTable() {
           <ul className="mt-4 flex-1 space-y-2.5 text-sm text-neutral-600">
             {tier.features.map((f) => (
               <li key={f} className="flex items-start gap-2.5">
-                <span className="mt-0.5 shrink-0 text-accent-500">
+                <span className="mt-0.5 shrink-0 text-accent-600">
                   <CheckIcon size={16} />
                 </span>
                 <span>{f}</span>

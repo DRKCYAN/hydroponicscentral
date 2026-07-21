@@ -6,7 +6,7 @@
   Type:    Geist (display / headings) · Inter (body / UI) · Geist Mono (data)
   Spacing: 4pt rhythm (Tailwind default scale) used everywhere.
   Radius:  a 3-step scale — controls 8px, cards 12px, surfaces 16px.
-  Color:   neutrals ~90% · one muted teal accent · green/amber/red = status only.
+  Color:   neutrals ~90% · one leaf-green accent · amber/red/teal = status only.
   Numbers: monospaced, tabular, with the unit always adjacent.
 */
 
@@ -19,36 +19,39 @@
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo,
     Consolas, monospace;
 
-  /* ---- Neutrals (cool gray) — the ~90% ---- */
+  /* ---- Neutrals (true gray) — the ~90% ---- */
   --color-neutral-0: #ffffff;
-  --color-neutral-50: #f7f8f8;
-  --color-neutral-100: #eef0f1;
-  --color-neutral-200: #e0e3e5;
-  --color-neutral-300: #c6cccf;
-  --color-neutral-400: #99a2a8;
-  --color-neutral-500: #6d767c;
-  --color-neutral-600: #4f585e;
-  --color-neutral-700: #3a4247;
-  --color-neutral-800: #262b2f;
-  --color-neutral-900: #161a1d;
+  --color-neutral-50: #f7f7f6;
+  --color-neutral-100: #efefee;
+  --color-neutral-200: #dedede;
+  --color-neutral-300: #c7c7c6;
+  --color-neutral-400: #9c9c9a;
+  --color-neutral-500: #71716f;
+  --color-neutral-600: #575755;
+  --color-neutral-700: #3f3f3e;
+  --color-neutral-800: #2a2a29;
+  --color-neutral-900: #1a1a1a;
 
-  /* ---- Accent — the single muted teal ---- */
-  --color-accent-50: #eef4f3;
-  --color-accent-100: #d6e5e3;
-  --color-accent-200: #aecbc7;
-  --color-accent-300: #7fa8a3;
-  --color-accent-400: #578682;
-  --color-accent-500: #3f7d78;
-  --color-accent-600: #356863;
-  --color-accent-700: #2c534f;
-  --color-accent-800: #24423f;
-  --color-accent-900: #1c3432;
+  /* ---- Accent — the single leaf green. 500 is the brand value; 600/700
+         are the darkened steps that carry text and button fills at AA. ---- */
+  --color-accent-50: #f4f9ec;
+  --color-accent-100: #e6f2d5;
+  --color-accent-200: #cee5ae;
+  --color-accent-300: #aed37c;
+  --color-accent-400: #8fc250;
+  --color-accent-500: #74b02c;
+  --color-accent-600: #55811e;
+  --color-accent-700: #44661a;
+  --color-accent-800: #354e17;
+  --color-accent-900: #2a3d14;
 
-  /* ---- Status — reserved. Never decorative. ---- */
-  --color-ok-50: #eef6f0;
-  --color-ok-200: #b6ddc2;
-  --color-ok-500: #2f855a;
-  --color-ok-700: #276749;
+  /* ---- Status — reserved. Never decorative.
+         "ok" leans blue-green so it stays legible as a signal next to the
+         yellow-green brand accent. ---- */
+  --color-ok-50: #e9f7f2;
+  --color-ok-200: #a5dcc9;
+  --color-ok-500: #0f7a5c;
+  --color-ok-700: #0b5f48;
 
   --color-caution-50: #fbf4e6;
   --color-caution-200: #f0dca8;
@@ -60,10 +63,10 @@
   --color-danger-500: #c53030;
   --color-danger-700: #9b2c2c;
 
-  --color-info-50: #eaf1f8;
-  --color-info-200: #bcd3ea;
-  --color-info-500: #2b6cb0;
-  --color-info-700: #2c5282;
+  --color-info-50: #ecf4f8;
+  --color-info-200: #b6d4e2;
+  --color-info-500: #1e6d88;
+  --color-info-700: #17546a;
 
   /* ---- Radius scale (controls · cards · surfaces) ---- */
   --radius-md: 0.5rem; /* 8px  — buttons, inputs, chips */
@@ -116,7 +119,7 @@ h6 {
 
 /* Consistent, visible focus ring on every interactive element. */
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-accent-500);
+  outline: 2px solid var(--color-accent-600);
   outline-offset: 2px;
   border-radius: 2px;
 }

@@ -134,7 +134,7 @@ export default function HomePage() {
                 "Units shown next to every number: no unit hidden in a tooltip",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
-                  <span className="mt-0.5 text-accent-500">
+                  <span className="mt-0.5 text-accent-600">
                     <CheckIcon size={16} />
                   </span>
                   {item}

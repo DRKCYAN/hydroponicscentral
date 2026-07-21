@@ -1,32 +1,32 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" fill="#f7f8f8"/>
+  <rect width="1200" height="630" fill="#f7f7f6"/>
   <rect width="1200" height="630" fill="url(#g)"/>
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="630" gradientUnits="userSpaceOnUse">
       <stop stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#f7f8f8"/>
+      <stop offset="1" stop-color="#f7f7f6"/>
     </linearGradient>
   </defs>
 
   <!-- brand mark + wordmark -->
   <g transform="translate(80,80)">
-    <rect width="64" height="64" rx="16" fill="#356863"/>
+    <rect width="64" height="64" rx="16" fill="#55811e"/>
     <path d="M32 52c0-12 7.2-19.2 18-20.8-1.6 14-8.8 20.8-18 20.8Zm0 0c0-12-7.2-19.2-18-20.8 1.6 14 8.8 20.8 18 20.8Zm0 0V36" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="84" y="42" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#262b2f">Hydroponicity</text>
+    <text x="84" y="42" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#2a2a29">Hydroponicity</text>
   </g>
 
   <!-- headline -->
-  <text x="80" y="360" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="66" font-weight="700" fill="#161a1d" letter-spacing="-1.2">A hydroponics nutrient calculator</text>
-  <text x="80" y="436" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="66" font-weight="700" fill="#161a1d" letter-spacing="-1.2">built for side-hustle growers</text>
-  <text x="80" y="496" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" fill="#4f585e">An advanced recipe-solving engine, made simple.</text>
+  <text x="80" y="360" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="66" font-weight="700" fill="#1a1a1a" letter-spacing="-1.2">A hydroponics nutrient calculator</text>
+  <text x="80" y="436" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="66" font-weight="700" fill="#1a1a1a" letter-spacing="-1.2">built for side-hustle growers</text>
+  <text x="80" y="496" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" fill="#575755">An advanced recipe-solving engine, made simple.</text>
 
   <!-- chips -->
-  <g font-family="Inter, Segoe UI, Arial, sans-serif" font-size="23" fill="#2c534f">
-    <rect x="80" y="536" width="252" height="52" rx="26" fill="#eef4f3" stroke="#aecbc7"/>
+  <g font-family="Inter, Segoe UI, Arial, sans-serif" font-size="23" fill="#44661a">
+    <rect x="80" y="536" width="252" height="52" rx="26" fill="#f4f9ec" stroke="#cee5ae"/>
     <text x="110" y="569">Multi-salt solver</text>
-    <rect x="348" y="536" width="330" height="52" rx="26" fill="#eef4f3" stroke="#aecbc7"/>
+    <rect x="348" y="536" width="330" height="52" rx="26" fill="#f4f9ec" stroke="#cee5ae"/>
     <text x="378" y="569">Source-water correction</text>
-    <rect x="694" y="536" width="196" height="52" rx="26" fill="#eef4f3" stroke="#aecbc7"/>
+    <rect x="694" y="536" width="196" height="52" rx="26" fill="#f4f9ec" stroke="#cee5ae"/>
     <text x="724" y="569">Ion balance</text>
   </g>
 </svg>
